@@ -1,0 +1,11 @@
+---
+- name: Remove all existing dockers in elk stack vm's
+  hosts: elk
+  become: true
+  tasks:
+    - name: Docker Test Deploy Removal
+      docker_contaitner:
+        force: yes
+        state: absent
+        name: dvwa
+        image: cyberxsecurity/dvwa

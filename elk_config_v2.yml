@@ -25,10 +25,18 @@
         name: docker
         enabled: yes
 
-    - name: Download and Setup ELK
-      docker_contatiner:
-        name: elk
-        image: sebp/elk:761
+    # - name: Download and Setup ELK
+    #   docker_contatiner:
+    #     name: elk
+    #     image: sebp/elk:761
+    #     state: started
+    #     restart_policy: always
+    #     published_ports: 5601:5601, 9200:9200, 5044:5044
+
+    - name: Test Docker Contaitner Install
+      docker_container:
+        name: dvwa
+        image: cyberxsecurity/dvwa
         state: started
         restart_policy: always
-        published_ports: 5601:5601, 9200:9200, 5044:5044
+        published_ports: 80:80
