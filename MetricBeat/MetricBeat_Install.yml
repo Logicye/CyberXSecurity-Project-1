@@ -1,12 +1,12 @@
 ---
-- name: Install FileBeat Ansible PlayBook
+- name: Install MetricBeat Ansible PlayBook
   hosts: webservers
   become: true
   tasks:
-    - name: Curl filebeat.deb
+    - name: Curl metricbeat.deb
       command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
 
-    - name: Unpackage filbeat
+    - name: Unpackage metricbeat
       command: sudo dpkg -i metricbeat-7.6.1-amd64.deb
 
     - name: Copy Config

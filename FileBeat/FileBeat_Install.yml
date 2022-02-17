@@ -6,7 +6,7 @@
     - name: Curl filebeat.deb
       command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
 
-    - name: Unpackage filbeat
+    - name: Unpackage filebeat
       command: sudo dpkg -i filebeat-7.6.1-amd64.deb
 
     - name: Copy Config
