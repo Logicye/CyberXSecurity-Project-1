@@ -20,7 +20,8 @@
         name: python3-pip
         state: present
 
-    - docker_contatiner:
+    - name: download and launch docker image
+      docker_contatiner:
         name: elk
         image: sebp/elk:761
         state: started
