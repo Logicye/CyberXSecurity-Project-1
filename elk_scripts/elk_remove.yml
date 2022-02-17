@@ -1,16 +1,16 @@
 ---
-- name: Remove all existing dockers in dvwa vm's
-  hosts: webservers
+- name: Remove all existing dockers in elk stack vm's
+  hosts: elk
   become: true
   tasks:
     - name: Docker Contatiner Removal
       docker_container:
         state: absent
-        name: dvwa
-        image: cyberxsecurity/dvwa
+        name: elk
+        image: sebp/elk:761
     - name: Docker Image removal
       docker_image:
-        name: cyberxsecurity/dvwa
-        repository: cyberxsecurity/dvwa
+        name: sebp/elk:761
+        repository: sebp/elk:761
         state: absent
         # working
