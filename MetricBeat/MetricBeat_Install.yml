@@ -14,6 +14,14 @@
       copy:
         src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-config.yml
         dest: /etc/metricbeat/metricbeat.yml
+
+    - name: remove docker.yml
+      command: sudo rm /etc/metricbeat/modules.d/docker.yml
+      
+    - name: Copy Config
+      copy:
+        src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-docker-config.yml
+        dest: /etc/metricbeat/modules.d/docker.yml
     
     - name: MetricBeat enabled docker
       command: sudo metricbeat modules enable docker
@@ -23,7 +31,7 @@
       command: sudo metricbeat setup
 
     - name: service metricbeat start
-      command: sudo service metricbeat start
+      command: sudo service metricbeat restart
 
     - name: Enable MetricBeat service
       systemd:
