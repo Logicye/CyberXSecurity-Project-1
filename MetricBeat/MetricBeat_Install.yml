@@ -4,11 +4,11 @@
   become: true
   tasks:
     - name: Curl metricbeat.deb
-      command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.0-amd64.deb
 
     - name: Unpackage metricbeat
       debugger: on_failed
-      command: sudo dpkg -i metricbeat-7.4.0-amd64.deb
+      command: sudo dpkg -i metricbeat-7.6.0-amd64.deb
 
     - name: Copy Config
       copy:
@@ -19,6 +19,7 @@
       command: sudo metricbeat modules enable docker
 
     - name: MetricBeat setup
+      debugger: on_failed
       command: sudo metricbeat setup
 
     - name: service metricbeat start
