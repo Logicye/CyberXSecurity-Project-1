@@ -3,11 +3,12 @@
   hosts: elk
   become: true
   tasks:
-    - name: Docker Test Deploy Removal
+    - name: Docker Contatiner Removal
       docker_container:
         state: absent
         name: dvwa
         image: cyberxsecurity/dvwa
+    - name: Docker Image removal
       docker_image:
         state: absent
         image: cyberxsecurity/dvwa
