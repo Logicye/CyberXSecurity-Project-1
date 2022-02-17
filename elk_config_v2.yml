@@ -1,0 +1,10 @@
+---
+- name: Config ELK VM with Docker
+  hosts: elk
+  become: true
+  tasks:
+    - name: Set Ram Limits
+      ansible.posix.sysctl:
+        name: vm.max_map_count
+        value: 262144
+        state: present
