@@ -8,3 +8,6 @@
         state: absent
         name: dvwa
         image: cyberxsecurity/dvwa
+      docker_image:
+        state: absent
+        image: cyberxsecurity/dvwa
