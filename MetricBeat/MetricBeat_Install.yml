@@ -16,11 +16,11 @@
         dest: /etc/metricbeat/metricbeat.yml
     
     - name: MetricBeat enabled docker
-      command: sudo ./metricbeat modules enable docker
+      command: sudo metricbeat modules enable docker
 
     - name: MetricBeat setup
       debugger: on_failed
-      command: sudo ./metricbeat setup
+      command: sudo metricbeat setup
 
     - name: service metricbeat start
       command: sudo service metricbeat start
