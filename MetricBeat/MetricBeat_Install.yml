@@ -14,8 +14,8 @@
         src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-config.yml
         dest: /etc/metricbeat/metricbeat.yml
     
-    - name: MetricBeat enabled
-      command: metricbeat modules enable system
+    - name: MetricBeat enabled docker
+      command: metricbeat modules enable docker
 
     - name: MetricBeat setup
       command: metricbeat setup
