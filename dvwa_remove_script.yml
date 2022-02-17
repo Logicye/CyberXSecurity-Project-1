@@ -5,7 +5,6 @@
   tasks:
     - name: Docker Test Deploy Removal
       docker_container:
-        force: yes
         state: absent
         name: dvwa
         image: cyberxsecurity/dvwa
