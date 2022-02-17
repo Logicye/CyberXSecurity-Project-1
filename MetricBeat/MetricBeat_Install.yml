@@ -2,12 +2,12 @@
 - name: Install MetricBeat Ansible PlayBook
   hosts: webservers
   become: true
-  debugger: always
   tasks:
     - name: Curl metricbeat.deb
       command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
 
     - name: Unpackage metricbeat
+      debugger: on_failed
       command: sudo dpkg -i metricbeat-7.4.0-amd64.deb
 
     - name: Copy Config
