@@ -19,6 +19,11 @@
       apt:
         name: python3-pip
         state: present
+
+    - name: Install Docker python module
+      pip:
+        name: docker
+        state: present
     
     - name: Enable docker service
       systemd:
@@ -32,6 +37,8 @@
     #     state: started
     #     restart_policy: always
     #     published_ports: 5601:5601, 9200:9200, 5044:5044
+
+    
 
     - name: Test Docker Contaitner Install
       docker_container:
