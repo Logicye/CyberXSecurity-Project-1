@@ -14,4 +14,18 @@
         # remote_src: yes
         # src: https://github.com/Logicye/CyberXSecurity-Project-1/blob/38a6dc28c17973027d0a34a16084282b0963f0f6/FileBeat/filebeat-config.yml
         src: /root/CyberXSecurity-Project-1/FileBeat/filebeat-config.yml
-        dest: /etc/filebeat/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+    
+    - name: FileBeat enabled
+      command: filebeat modules enable system
+
+    - name: FileBeat setup
+      command: filebeat setup
+
+    - name: service filebeat start
+      command: service filebeat start
+
+    - name: Enable FileBeat service
+      systemd:
+        name: filebeat
+        enabled: yes
