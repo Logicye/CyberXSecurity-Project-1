@@ -17,13 +17,13 @@
         dest: /etc/filebeat/filebeat.yml
     
     - name: FileBeat enabled
-      command: filebeat modules enable system
+      command: sudo filebeat modules enable system
 
     - name: FileBeat setup
-      command: filebeat setup
+      command: sudo filebeat setup
 
     - name: service filebeat start
-      command: service filebeat start
+      command: sudo service filebeat start
 
     - name: Enable FileBeat service
       systemd:
