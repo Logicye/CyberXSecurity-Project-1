@@ -13,4 +13,3 @@
         name: registry.ansible.com/cyberxsecurity/dvwa
         repository: cyberxsecurity/dvwa
         state: absent
-        image: cyberxsecurity/dvwa
