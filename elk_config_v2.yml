@@ -26,9 +26,9 @@
         enabled: yes
 
     - name: Download and Setup ELK
-          docker_contatiner:
-            name: elk
-            image: sebp/elk:761
-            state: started
-            restart_policy: always
-            published_ports: 5601:5601, 9200:9200, 5044:5044
+      docker_contatiner:
+        name: elk
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports: 5601:5601, 9200:9200, 5044:5044
