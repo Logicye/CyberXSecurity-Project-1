@@ -10,6 +10,7 @@
         image: cyberxsecurity/dvwa
     - name: Docker Image removal
       docker_image:
+        name: registry.ansible.com/cyberxsecurity/dvwa
         repository: cyberxsecurity/dvwa
         state: absent
         image: cyberxsecurity/dvwa
