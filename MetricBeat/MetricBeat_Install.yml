@@ -1,0 +1,29 @@
+---
+- name: Install FileBeat Ansible PlayBook
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Curl filebeat.deb
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
+
+    - name: Unpackage filbeat
+      command: sudo dpkg -i metricbeat-7.6.1-amd64.deb
+
+    - name: Copy Config
+      copy:
+        src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-config.yml
+        dest: /etc/metricbeat/metricbeat.yml
+    
+    - name: MetricBeat enabled
+      command: metricbeat modules enable system
+
+    - name: MetricBeat setup
+      command: metricbeat setup
+
+    - name: service metricbeat start
+      command: service metricbeat start
+
+    - name: Enable MetricBeat service
+      systemd:
+        name: metricbeat
+        enabled: yes
