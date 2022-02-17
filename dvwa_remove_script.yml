@@ -10,5 +10,6 @@
         image: cyberxsecurity/dvwa
     - name: Docker Image removal
       docker_image:
+        name: dvma
         state: absent
         image: cyberxsecurity/dvwa
