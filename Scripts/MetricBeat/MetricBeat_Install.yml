@@ -12,7 +12,7 @@
 
     - name: Copy Config
       copy:
-        src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-config.yml
+        src: /root/CyberXSecurity-Project-1/Scripts/MetricBeat/metricbeat-config.yml
         dest: /etc/metricbeat/metricbeat.yml
 
     - name: remove docker.yml
@@ -20,7 +20,7 @@
       
     - name: Copy Config
       copy:
-        src: /root/CyberXSecurity-Project-1/MetricBeat/metricbeat-docker-config.yml
+        src: /root/CyberXSecurity-Project-1/Scripts/MetricBeat/metricbeat-docker-config.yml
         dest: /etc/metricbeat/modules.d/docker.yml
     
     - name: MetricBeat enabled docker
