@@ -1,0 +1,128 @@
+---
+- name: Config ELK VM with Docker for ELK Stack
+  hosts: elk
+  become: true
+  tasks:
+    - name: Set Ram Limits
+      ansible.posix.sysctl:
+        name: vm.max_map_count
+        value: 262144
+        state: present
+
+    - name: Install docker.io
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Install python3-pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker python module
+      pip:
+        name: docker
+        state: present
+    
+    - name: Enable docker service
+      systemd:
+        name: docker
+        enabled: yes
+    
+    # - name: Elk Docker Iamge Download
+    #   docker_image:
+    #     image:
+
+    - name: Download and Setup ELK
+      docker_container:
+        name: elk
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports: 
+          - 5601:5601
+          - 9200:9200
+          - 5044:5044
+        # exposed_ports:
+        #   - 5601
+        #   - 9200
+        #   - 5044
+
+    
+
+    # - name: Test Docker Contaitner Install
+    #   docker_container:
+    #     name: dvwa
+    #     image: cyberxsecurity/dvwa
+    #     state: started
+    #     restart_policy: always
+    #     published_ports: 80:80
+    #     # worked
+
+
+- name: Complete Install ELK Stack
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Curl filebeat.deb
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
+
+    - name: Unpackage filebeat
+      command: sudo dpkg -i filebeat-7.6.1-amd64.deb
+
+    - name: Copy Config
+      copy:
+        # remote_src: yes
+        # src: https://github.com/Logicye/CyberXSecurity-Project-1/blob/38a6dc28c17973027d0a34a16084282b0963f0f6/FileBeat/filebeat-config.yml
+        src: /root/CyberXSecurity-Project-1/Scripts/FileBeat/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+    
+    - name: FileBeat enabled
+      command: sudo filebeat modules enable system
+
+    - name: FileBeat setup
+      command: sudo filebeat setup
+
+    - name: service filebeat start
+      command: sudo service filebeat start
+
+    - name: Enable FileBeat service
+      systemd:
+        name: filebeat
+        enabled: yes
+
+    - name: Curl metricbeat.deb
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
+
+    - name: Unpackage metricbeat
+      debugger: on_failed
+      command: sudo dpkg -i metricbeat-7.6.1-amd64.deb
+
+    - name: Copy Config
+      copy:
+        src: /root/CyberXSecurity-Project-1/Scripts/MetricBeat/metricbeat-config.yml
+        dest: /etc/metricbeat/metricbeat.yml
+
+    - name: remove docker.yml
+      command: sudo rm /etc/metricbeat/modules.d/docker.yml
+      
+    - name: Copy Config
+      copy:
+        src: /root/CyberXSecurity-Project-1/Scripts/MetricBeat/metricbeat-docker-config.yml
+        dest: /etc/metricbeat/modules.d/docker.yml
+    
+    - name: MetricBeat enabled docker
+      command: sudo metricbeat modules enable docker
+
+    - name: MetricBeat setup
+      debugger: on_failed
+      command: sudo metricbeat setup
+
+    - name: service metricbeat start
+      command: sudo service metricbeat restart
+
+    - name: Enable MetricBeat service
+      systemd:
+        name: metricbeat
+        enabled: yes
