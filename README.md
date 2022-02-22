@@ -31,26 +31,24 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - **MetricBeat**, also part of the ELK Stack, allows amdins to monitor the funtioning and helth of the machines by looking at performance metricks from the network and hardware. This allows the admins to both see the capacity and flow of traffic but also if the servers are in need of maintance or increased capacity.
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+|      **Name**      | **Function**| IP Address |   Operating System   |
+|:------------------:|:-----------:|:----------:|:--------------------:|
+| JumpBoxProvisioner | Gateway     | 10.0.0.1   | Linux (ubuntu 18.04) |
+|        Web-1       | Host Server | 10.0.0.8   | Linux (ubuntu 18.04) |
+|        Web-2       | Host Server | 10.0.0.9   | Linux (ubuntu 18.04) |
+|        Web-3       | Host Server | 10.0.0.10  | Linux (ubuntu 18.04) |
+|      ElkServer     | Log Server  | 10.1.0.4   | Linux (ubuntu 18.04) |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the JumpBox machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+- 103.107.197.6 - Proxy end point of VPN
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
-
-A summary of the access policies in place can be found in the table below.
+Machines within the network can only be accessed by JumpBox and ELKServer.
+- A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
