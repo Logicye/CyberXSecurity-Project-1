@@ -75,20 +75,33 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- 10.0.0.8
+- 10.0.0.9
+- 10.0.0.10
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- FileBeat
+- MetricBeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects all logs on machines it is connected to:
+  -For Example, the logs from user logons of Connected Ip's.
+- Metricbeat collects all hardware information for the servers it is connected to:
+  -For Example, the dosk usage and capacity or the network throughput.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
+- Copy the [Complete_Install.yml](Scripts/Complete_Install.yml) file to the ansible container.
+- Update the [filebeat_config.yml](Scripts/filebeat_config.yml) file to include:
+  - s
+  - a
+  - a
+- Update the [metricbeat_config.yml](Scripts/metricbeat_config.yml) file to include:
+  - s
+  - a
+  - a
 - Run the playbook, and navigate to ____ to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
