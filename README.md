@@ -95,14 +95,19 @@ In order to use the playbook, you will need to have an Ansible control node alre
 SSH into the control node and follow the steps below:
 - Copy the [Complete_Install.yml](Scripts/Complete_Install.yml) file to the ansible container.
 - Update the [filebeat_config.yml](Scripts/filebeat_config.yml) file to include:
-  - s
-  - a
-  - a
+  - Scroll to line #1106 and replace the IP address with the IP address of your ELK machine.
+    - Replace the username with your own
+    - Replace the password with your own
+  - Scroll to line #1806 and replace the IP address with the IP address of your ELK machine.
+  - 
 - Update the [metricbeat_config.yml](Scripts/metricbeat_config.yml) file to include:
   - s
   - a
   - a
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Update the [Complete_Install.yml](Scripts/Complete_Install.yml) file so that the directories for the config files match the sources address in the ansible container:
+  - Line 79: Filebeat config location
+  - Line 105: Metricbeat config location
+- Run the playbook, and navigate to the end of the command line to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
