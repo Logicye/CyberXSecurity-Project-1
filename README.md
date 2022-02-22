@@ -60,17 +60,18 @@ Machines within the network can only be accessed by JumpBox and ELKServer.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because this allows the deploymeny of this software accross a hypothetically infinite network. It also advantages us as we can also uninstall and update using the same process through ansible, making maintanance and disposale significanlty easier.
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Install Docker.io
+- Install python3-pip
+- Install Docker pip Library
+- Enable the Docker Serive
+- Download and setup the ELK container
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![plot](Images/elk running screenshot (fixed exposed to published ports).png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
