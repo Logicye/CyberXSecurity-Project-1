@@ -32,13 +32,13 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 
 The configuration details of each machine may be found below.
 
-|      **Name**      | **Function**| IP Address |   Operating System   |
-|:------------------:|:-----------:|:----------:|:--------------------:|
-| JumpBoxProvisioner | Gateway     | 10.0.0.1   | Linux (ubuntu 18.04) |
-|        Web-1       | Host Server | 10.0.0.8   | Linux (ubuntu 18.04) |
-|        Web-2       | Host Server | 10.0.0.9   | Linux (ubuntu 18.04) |
-|        Web-3       | Host Server | 10.0.0.10  | Linux (ubuntu 18.04) |
-|      ElkServer     | Log Server  | 10.1.0.4   | Linux (ubuntu 18.04) |
+|     **_Name_**     | **_Function_** | **_IP Address_** | **_Operating System_** |
+|:------------------:|:--------------:|:----------------:|:----------------------:|
+| JumpBoxProvisioner | Gateway        | 10.0.0.1         | Linux (ubuntu 18.04)   |
+|        Web-1       | Host Server    | 10.0.0.8         | Linux (ubuntu 18.04)   |
+|        Web-2       | Host Server    | 10.0.0.9         | Linux (ubuntu 18.04)   |
+|        Web-3       | Host Server    | 10.0.0.10        | Linux (ubuntu 18.04)   |
+|      ElkServer     | Log Server     | 10.1.0.4         | Linux (ubuntu 18.04)   |
 
 ### Access Policies
 
@@ -50,11 +50,13 @@ Only the JumpBox machine can accept connections from the Internet. Access to thi
 Machines within the network can only be accessed by JumpBox and ELKServer.
 - A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+|      **Name**      | **Publicly Accessible** | **Allowed IP Addresses** |
+|:------------------:|:-----------------------:|:------------------------:|
+| JumpBoxProvisioner |           Yes           |       103.107.197.6      |
+|        Web-1       |            No           |         10.0.0.4         |
+|        Web-2       |            No           |         10.0.0.4         |
+|        Web-3       |            No           |         10.0.0.4         |
+|      ElkSever      |           Yes           |  103.107.197.6, 10.0.0.4 |
 
 ### Elk Configuration
 
