@@ -27,8 +27,8 @@ Load balancing ensures that the application will be highly Available, in additio
 - The load balancer is behind a network security group that allows direct control over public network connections. This also allows the user the ability to control the webservers themselves through a jumpbox which is only accessible through a limited IP range associated with the administartors computer.
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the machine and system containers.
-- FileBeat, an intergrated part of the ELK Stack, allows admins to directly gather logs from the systems running its client and manipulate the logs to gather vital data about the operations taking place on the system and look for potentially fraudulent or mal-intent actors. 
-- MetricBeat, laso part of the ELK Stack, allows amdins to monitor the funtioning and helth of the machines by looking at performance metricks from the network and hardware. This allows the admins to both see the capacity and flow of traffic but also if the servers are in need of maintance or increased capacity.
+- **FileBeat**, an intergrated part of the ELK Stack, allows admins to directly gather logs from the systems running its client and manipulate the logs to gather vital data about the operations taking place on the system and look for potentially fraudulent or mal-intent actors. 
+- **MetricBeat**, also part of the ELK Stack, allows amdins to monitor the funtioning and helth of the machines by looking at performance metricks from the network and hardware. This allows the admins to both see the capacity and flow of traffic but also if the servers are in need of maintance or increased capacity.
 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
