@@ -44,7 +44,7 @@ Download_Install_And_Config_Files() {
         echo "Where Would you like to save the files:"
         read Config_Files
         if ! [ -d "$CurDir/$Config_Files" ]; then
-                read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+                read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
                 if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                         mkdir $Config_Files
                 fi
@@ -78,11 +78,11 @@ Config_Modify() {
 
 #Clear Server Lists at Run Time
 Clear_Server_Lists() {
-        read -p "Would you like to clear the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to clear the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 echo "" > "$WebServerListFileName"
         fi
-        read -p "Would you like to clear elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to clear elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 echo "" > "$ElkServerListFileName"
         fi
@@ -106,19 +106,19 @@ Update_Log() {
 #Clean up discarded files
 Clean_Up() {
         rm -r $Config_Files
-        read -p "Would you like to delete the log file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete the log file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $LogFile
         else
                 break
         fi
-        read -p "Would you like to delete the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $WebServerListFile
         else
                 break
         fi
-        read -p "Would you like to delete elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFile
         else
