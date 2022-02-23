@@ -10,7 +10,7 @@ SearchIP="10.1.0.4"
 printf "Search IP Address: $SearchIP\n"
 
 # Directories to replace 
-ReplaceDir= pwd 
+ReplaceDir= $(pwd)
 printf "Replace Directory: $ReplaceDir\n"
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 printf "Search Directory: $SearchDir\n"
