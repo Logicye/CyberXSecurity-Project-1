@@ -179,6 +179,7 @@ Update() {
         wget -O Updater.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 1
         bash Updater.sh
+        exit
 }
 
 #Clean up discarded files
@@ -330,4 +331,4 @@ Menu
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" filebeat-config.yml
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" metricbeat-config.yml
 
-# Test Update Install token "123"
+# Test Update Install token "111"
