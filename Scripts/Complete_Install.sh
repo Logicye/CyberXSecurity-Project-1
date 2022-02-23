@@ -14,6 +14,7 @@ Blue='\033[0;34m'
 NoColour='\033[0m'
 
 #Set known variables
+Version="0.2.2"
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 LogFile="log.txt"
@@ -176,7 +177,7 @@ Install() {
 
 #Self Updater
 Update() {
-        curl -O Updater.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         sleep 1
         bash Updater.sh
         exit
@@ -219,7 +220,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
       printf "${Green}|E|L|K| |I|N|S|T|A|L|L|E|R|\n"
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n${NoColour}"
-      echo "(v0.2)Select one option using up/down keys and enter to confirm:"
+      echo "($Version)Select one option using up/down keys and enter to confirm:"
       echo
       options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Update" "Quit")
       select_option "${options[@]}"
