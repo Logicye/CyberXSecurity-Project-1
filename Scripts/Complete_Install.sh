@@ -51,12 +51,12 @@ Download_Install_And_Config_Files() {
 
 #Set user web servers IP's
 Web_Server_Set() {
-
+        echo "testing"
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
-
+        echo "testing"
 }
 
 #Modify config files
