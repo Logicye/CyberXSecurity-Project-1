@@ -34,6 +34,7 @@ fi
 ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
 Config_Files=""
+Config_Files_Default="Elk_Install_Files"
 
 
 
@@ -105,14 +106,26 @@ function select_option {
 
 #Install file gather
 Download_Install_And_Config_Files() {
-        echo "Where Would you like to save the files:"
-        read Config_Files
-        if ! [ -d "$CurDir/$Config_Files" ]; then
+        Dir_Select(){
+              if ! [ -d "$CurDir/$Config_Files" ]; then
                 read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
                 if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                         mkdir $Config_Files
+                elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+                        Config_Files=$Config_Files_Default
+                else
+                        Dir_Select
                 fi
-        fi
+        fi  
+        }
+        # echo "Where Would you like to save the files:"
+        # read Config_Files
+        # if ! [ -d "$CurDir/$Config_Files" ]; then
+        #         read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
+        #         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+        #                 mkdir $Config_Files
+        #         fi
+        # fi
         cd $Config_Files
         wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
