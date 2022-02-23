@@ -219,7 +219,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
       printf "${Green}|E|L|K| |I|N|S|T|A|L|L|E|R|\n"
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n${NoColour}"
-      echo "Select one option using up/down keys and enter to confirm:"
+      echo "(v0.2)Select one option using up/down keys and enter to confirm:"
       echo
       options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Update" "Quit")
       select_option "${options[@]}"
