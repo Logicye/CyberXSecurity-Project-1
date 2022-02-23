@@ -108,7 +108,7 @@ Download_Install_And_Config_Files() {
         echo "Where Would you like to save the files:"
         read Config_Files
         if ! [ -d "$CurDir/$Config_Files" ]; then
-                read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+                read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
                 if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                         mkdir $Config_Files
                 fi
@@ -146,11 +146,11 @@ Config_Modify() {
 
 #Clear Server Lists at Run Time
 Clear_Server_Lists() {
-        read -p "Would you like to clear the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to clear the web server list file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 echo "" > "$WebServerListFileName"
         fi
-        read -p "Would you like to clear elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to clear elk server list file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 echo "" > "$ElkServerListFileName"
         fi
@@ -159,7 +159,8 @@ Clear_Server_Lists() {
 
 #Runs install process once all variables have been given
 Install() {
-        ansible-playbook Complete_Install.yml
+        ansible-playbook $CurDir/Complete_Install.yml
+        printf "${Green} Install Complete!"
         Exit_Or_Return
 }
 
@@ -177,17 +178,22 @@ Update_Log() {
 #Clean up discarded files
 Clean_Up() {
         rm -r $Config_Files
-        read -p "Would you like to delete the log file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete the config file folder? (Y/N): " confirm  
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm -r $Config_Files
+                echo "Config Files Removed"
+        fi
+        read -p "Would you like to delete the log file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $LogFile
                 echo "Log File Removed"
         fi
-        read -p "Would you like to delete the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete the web server list file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $WebServerListFileName
                 echo "Web Server List File Removed"
         fi
-        read -p "Would you like to delete elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to delete elk server list file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFileName
                 echo "Elk Server List File Removed"
@@ -206,25 +212,7 @@ Menu() {
       options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
       select_option "${options[@]}"
       choice=$?
-#       if  [ $Choice -eq "0" ] ; then
-#               Download_Install_And_Config_Files
-#       elif  [ $Choice -eq "1" ] ; then
-#               Web_Server_Set
-#       elif  [ $Choice -eq "2" ] ; then
-#               Elk_Server_Set
-#       elif  [ $Choice -eq "3" ] ; then
-#               Clear_Server_Lists
-#       elif  [ $Choice -eq "4" ] ; then
-#               Config_Modify
-#       elif  [ $Choice -eq "5" ] ; then
-#               Update_Log
-#       elif  [ $Choice -eq "6" ] ; then
-#               Install
-#       elif  [ $Choice -eq "7" ] ; then
-#               Clean_Up
-#       elif  [ $Choice -eq "8" ] ; then
-#               exit
-#       fi
+
         case $choice in
                 0)
                 Download_Install_And_Config_Files;;
@@ -256,7 +244,7 @@ Menu() {
 
 #Exit or return function, decides whether or not to head back to menu or close out of the installer
 function Exit_Or_Return {
-        read -p "Would you like to return to menu? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p "Would you like to return to menu? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 Menu
         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
