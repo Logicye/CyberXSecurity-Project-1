@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #inintialise
+# set -e
 clear
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
@@ -19,14 +20,16 @@ LogFile="log.txt"
 CurDir=`pwd`
 #-----------------
 if ! [ -f "$CurDir/WebServerList.txt" ]; then
-echo "" > WebServerList.txt
 echo "No WebServerList.txt found"
+echo "" > WebServerList.txt
+echo "WebServerList.txt created"
 fi
 WebServerListFileName="$CurDir/WebServerList.txt"
 #-----------------
 if ! [ -f "$CurDir/ElkServerList.txt" ]; then
-echo "" > ElkServerList.txt
 echo "No ElkServerList.txt found"
+echo "" > ElkServerList.txt
+echo "ElkServerList.txt created"
 fi
 ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
@@ -108,16 +111,36 @@ Clean_Up() {
         read -p "Would you like to delete the log file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $LogFile
+                echo "Log File Removed"
         fi
         read -p "Would you like to delete the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $WebServerListFileName
+                echo "Web Server List File Removed"
         fi
         read -p "Would you like to delete elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFileName
+                echo "Elk Server List File Removed"
         fi
         #rm $LogFile
+}
+
+#primary menu function
+Menu() {
+        Exit_Or_Return
+}
+
+#Exit or return function, decides whether or not to head back to menu or close out of the installer
+Exit_Or_Return() {
+        read -p "Would you like to return to menu? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                #run the primary menu function once added
+        elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+                exit
+        else
+                Exit_Or_Return
+        fi
 }
 
 
@@ -125,10 +148,7 @@ Clean_Up() {
 #                       Main Arguments And Script
 # -------------------------------------------------------------------------------------------------------------
 
-Download_Install_And_Config_Files
-Clear_Server_Lists
-Clean_Up
-exit
+Menu
 
 
 
