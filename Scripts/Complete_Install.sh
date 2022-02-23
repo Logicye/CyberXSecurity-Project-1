@@ -198,9 +198,9 @@ Clean_Up() {
 
 #primary menu function
 Menu() {
-      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+"
-      printf "${Green}|E|L|K| |I|N|S|T|A|L|L|"
-      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+"
+      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+\n"
+      printf "${Green}|E|L|K| |I|N|S|T|A|L|L|\n"
+      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+\n"
       echo "Select one option using up/down keys and enter to confirm:"
       echo
       options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
