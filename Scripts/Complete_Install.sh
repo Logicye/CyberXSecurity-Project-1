@@ -226,22 +226,28 @@ Menu() {
                 0)
                 Download_Install_And_Config_Files;;
                 1)
-                Web_Server_Set;;
+                Web_Server_Set
+                ;;
                 2)
-                Elk_Server_Set;;
+                Elk_Server_Set
+                ;;
                 3)
-                Clear_Server_Lists;;
+                Clear_Server_Lists
+                ;;
                 4)
-                Config_Modify;;
+                Config_Modify
+                ;;
                 5)
-                Update_Log;;
+                Update_Log
+                ;;
                 6)
-                Install;;
+                Install
+                ;;
                 7)
-                Clean_Up;;
+                Clean_Up
+                ;;
                 8)
                 exit
-
 }
 
 #Exit or return function, decides whether or not to head back to menu or close out of the installer
