@@ -21,7 +21,7 @@ read ReplaceIP
 echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts y/n. (/etc/ansible/hosts)'
 echo -n '   -:'
 read REPLY
-if $REPLY= "y"
+if [[$REPLY= "y"]]
 then
         #modify ansible hosts files to add elk header and ip addresses
         if not grep -q "[elk]" "/etc/ansible/hosts"; then
