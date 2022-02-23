@@ -96,22 +96,22 @@ Clean_Up() {
 # echo -n '   -:'
 # read
 
-echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
-echo 'Enter IP Addresses of Web Servers'
+# echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
+# echo 'Enter IP Addresses of Web Servers'
 
 
 
 
-mkdir ELK_Stack_Install
-cd ELK_Stack_Install
-wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
-printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
-printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
-printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
-printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
+# mkdir ELK_Stack_Install
+# cd ELK_Stack_Install
+# wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+# printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
+# wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+# printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
+# wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+# printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
+# wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+# printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
 #Replace
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" filebeat-config.yml
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" metricbeat-config.yml
