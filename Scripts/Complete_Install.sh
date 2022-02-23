@@ -38,7 +38,10 @@ then
         if ! grep -q "[elk]" "/etc/ansible/hosts"; then
                 echo "[elk]" | tee -a $HostsFile
         fi
+else 
+                break
 fi
+
 
 # echo -n '   -:'
 # read
