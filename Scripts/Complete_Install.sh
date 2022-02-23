@@ -150,12 +150,13 @@ Web_Server_Set() {
 
 #Set user elk server IP
 Elk_Server_Set() {
+        clear
+        echo "Please enter the IP address of your Kibana server: "
         read NewIP
         # sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
         echo "[elk]" >> /etc/ansible/hosts.txt
         echo "$NewIP" >> /etc/ansible/hosts.txt
         echo "$NewIP" > $ElkServerListFileName
-        echo "testing"
         Exit_Or_Return
 }
 
