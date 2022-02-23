@@ -178,7 +178,8 @@ Install() {
         wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
         cd ../
-        ansible-playbook $CurDir/$Config_Files/Complete_Install.yml
+        Ansible_File= "$CurDir/$Config_Files/Complete_Install.yml"
+        ansible-playbook "$Ansible_File"
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
 }
