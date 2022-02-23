@@ -5,15 +5,15 @@ NoColour='\033[0m'
 
 # IP Addresses to replace
 ReplaceIP="109.111.212.3" >> log.txt
-printf "Replace IP Address: $ReplaceIP"
-SeacrchIP='10.1.0.4' >> log.txt
-printf "Search IP Address: $SearchIP"
+printf "Replace IP Address: $ReplaceIP\n"
+SeacrchIP="10.1.0.4" >> log.txt
+printf "Search IP Address: $SearchIP\n"
 
 # Directories to replace 
 ReplaceDir= pwd >> log.txt
-printf "Replace Directory: $ReplaceDir"
+printf "Replace Directory: $ReplaceDir\n"
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/' >> log.txt # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
-printf "Search Directory: $SearchDir"
+printf "Search Directory: $SearchDir\n"
 
 mkdir ELK_Stack_Install
 cd ELK_Stack_Install
