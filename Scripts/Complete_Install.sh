@@ -120,15 +120,6 @@ fi
 }
 #Install file gather
 Download_Install_And_Config_Files() {
-
-        # echo "Where Would you like to save the files:"
-        # read Config_Files
-        # if ! [ -d "$CurDir/$Config_Files" ]; then
-        #         read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
-        #         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-        #                 mkdir $Config_Files
-        #         fi
-        # fi
         Dir_Select
         cd $Config_Files
         wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
@@ -176,7 +167,17 @@ Clear_Server_Lists() {
 
 #Runs install process once all variables have been given
 Install() {
-        Download_Install_And_Config_Files
+        Dir_Select
+        cd $Config_Files
+        wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+        printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+        printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+        printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+        printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
+        cd ../
         ansible-playbook $CurDir/$Config_Files/Complete_Install.yml
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
