@@ -22,12 +22,12 @@ CurDir=`pwd`
 if ! [ -f "$CurDir/WebServerList.txt" ]; then
 echo "" > WebServerList.txt
 fi
-WebServerListFileName= "$CurDir/WebServerList.txt"
+WebServerListFileName="$CurDir/WebServerList.txt"
 #-----------------
 if ! [ -f "$CurDir/ElkServerList.txt" ]; then
 echo "" > ElkServerList.txt
 fi
-ElkServerListFileName= "$CurDir/ElkServerList.txt"
+ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
 Config_Files="123"
 
