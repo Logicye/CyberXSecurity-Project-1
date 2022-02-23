@@ -35,8 +35,12 @@ Config_Files="123"
 Download_Install_And_Config_Files() {
         echo "Where Would you like to save the files:"
         read Config_Files
-        read -p -e "Saving to $Config_Files \nContinue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
-        mkdir $Config_Files
+        if [ -d "$CurDir/$Config_Files" ]; then
+                read -p -e "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+                if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                        mkdir $Config_Files
+                fi
+        fi
         cd $Config_Files
         wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
