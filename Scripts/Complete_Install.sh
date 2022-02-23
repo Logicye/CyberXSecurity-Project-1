@@ -106,8 +106,6 @@ function select_option {
 
 #Download Dependent Function
 Dir_Select() {
-echo "Where Would you like to save the files:"
-read Config_Files
 if ! [ -d "$CurDir/$Config_Files" ]; then
         read -p "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
@@ -178,7 +176,8 @@ Clear_Server_Lists() {
 
 #Runs install process once all variables have been given
 Install() {
-        ansible-playbook $CurDir/Complete_Install.yml
+        Download_Install_And_Config_Files
+        ansible-playbook $CurDir/$Config_Files/Complete_Install.yml
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
 }
@@ -191,7 +190,7 @@ Update_Log() {
         # echo "$ReplaceDir" >> $LogFile
         # echo "$SearchDir" >> $LogFile
         # echo "$WebServers" >> $LogFile
-        Exit_Or_Return
+        Menu
 }
 
 #Clean up discarded files
