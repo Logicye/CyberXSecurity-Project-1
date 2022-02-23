@@ -19,7 +19,7 @@ echo 'Enter IP address of Kibana server: '
 echo -n '   -:'
 read ReplaceIP
 echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts y/n. (/etc/ansible/hosts)'
-echo -n '   -:'
+# echo -n '   -:'
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) make install; break;;
