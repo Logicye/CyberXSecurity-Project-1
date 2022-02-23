@@ -18,8 +18,17 @@ DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 LogFile="log.txt"
 CurDir=`pwd`
+#-----------------
+if ! [-f "$CurDir/WebServerList.txt" ]; then
+echo "" > WebServerList.txt
+fi
 WebServerListFile= "$CurDir/WebServerList.txt"
+#-----------------
+if ! [-f "$CurDir/ElkServerList.txt" ]; then
+echo "" > ElkServerList.txt
+fi
 ElkServerListFile= "$CurDir/ElkServerList.txt"
+#-----------------
 Config_Files="123"
 
 #Install file gather
