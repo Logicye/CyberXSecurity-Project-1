@@ -1,6 +1,8 @@
 clear
 Green='\033[0;32m'
+Blue='\033[0;34m'
 NoColour='\033[0m'
+
 mkdir ELK_Stack_Install
 cd ELK_Stack_Install
 wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
@@ -12,4 +14,4 @@ printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
 wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
 printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
 CurDir= pwd
-printf "$CurDir"
+printf "${Blue}$CurDir"

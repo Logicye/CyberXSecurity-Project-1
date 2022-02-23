@@ -1,3 +1,4 @@
+clear
 cd CyberXSecurity-Project-1
 git pull
 cd ..
