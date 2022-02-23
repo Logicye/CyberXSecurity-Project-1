@@ -17,34 +17,48 @@ NoColour='\033[0m'
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 LogFile="log.txt"
+CurDir=`pwd`
+WebServerListFile= "$CurDir/WebServerList.txt"
+ElkServerListFile= "$CurDir/ElkServerList.txt"
+Config_Files="123"
 
 #Install file gather
-Install_File_Gather() {
-        mkdir ELK_Stack_Install
-cd ELK_Stack_Install
-wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
-printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
-printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
-printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
-wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
-printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
+Download_Install_And_Config_Files() {
+        echo "Where Would you like to save the files:"
+        read Config_Files
+        read -p "Saving to $Config_Files \nContinue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        mkdir $Config_Files
+        cd $Config_Files
+        wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+        printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+        printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+        printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
+        wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+        printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
+        cd ../
 }
 
 #Set user web servers IP's
 Web_Server_Set() {
-        echo "nothing here yet"
+
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
-        echo "nothing here yet"
+
 }
 
 #Modify config files
 Config_Modify() {
         echo "nothing here yet"
+}
+
+#Clear Server Lists at Run Time
+Clear_Server_Lists() {
+        echo "" > $WebServerListFile
+        echo "" > $ElkServerListFile
 }
 
 #Runs install process once all variables have been given
@@ -54,18 +68,37 @@ Install() {
 
 #Updates all variables required to specified log files add variables to list to watch outputs
 Update_Log() {
-        echo "$ReplaceIP" >> $LogFile
-        echo "$SearchIP" >> $LogFile
-        echo "$ReplaceDir" >> $LogFile
-        echo "$SearchDir" >> $LogFile
-        echo "$WebServers" >> $LogFile
+        # echo "$ReplaceIP" >> $LogFile
+        # echo "$SearchIP" >> $LogFile
+        # echo "$ReplaceDir" >> $LogFile
+        # echo "$SearchDir" >> $LogFile
+        # echo "$WebServers" >> $LogFile
 }
 
 #Clean up discarded files
 Clean_Up() {
-        rm 
+        rm -r ELK_Stack_Install
+        rm log.txt
+        rm Complete_Install.yml
+
+
 }
 
+
+# -------------------------------------------------------------------------------------------------------------
+#                       Main Arguments And Script
+# -------------------------------------------------------------------------------------------------------------
+
+echo "$Config_Files" >> $LogFile
+Download_Install_And_Config_Files()
+echo "$Config_Files" >> $LogFile
+
+
+
+
+
+# Confirm test
+# # read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] --------------------------------------------------
 # echo 'Enter IP address of Kibana server: '
 # echo -n '   -:'
 # read ReplaceIP
