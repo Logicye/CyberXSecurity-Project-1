@@ -179,7 +179,7 @@ Clear_Server_Lists() {
 #Runs install process once all variables have been given
 Install() {
         ansible-playbook $CurDir/Complete_Install.yml
-        printf "${Green} Install Complete!"
+        printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
 }
 
