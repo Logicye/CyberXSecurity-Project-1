@@ -179,8 +179,6 @@ Install() {
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         sync; echo 3 > /proc/sys/vm/drop_caches 
-        rm ~/.mozilla/firefox/*.default/*.sqlite ~/.mozilla/firefox/*default/sessionstore.js
-        rm -r ~/.cache/mozilla/firefox/*.default/*
         rm Updater.sh
         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
