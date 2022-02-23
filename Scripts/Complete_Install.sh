@@ -35,7 +35,7 @@ if [$REPLY -e "y"]
 then
         #modify ansible hosts files to add elk header and ip addresses
         if ! grep -q "[elk]" "/etc/ansible/hosts"; then
-                echo "[elk]" >> /etc/ansible/hosts.txt
+                echo "[elk]" >> "/etc/ansible/hosts.txt"
         fi
 fi
 
