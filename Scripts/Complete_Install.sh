@@ -35,7 +35,7 @@ Config_Files="123"
 Download_Install_And_Config_Files() {
         echo "Where Would you like to save the files:"
         read Config_Files
-        if [ -d "$CurDir/$Config_Files" ]; then
+        if ! [ -d "$CurDir/$Config_Files" ]; then
                 read -p -e "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
                 if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                         mkdir $Config_Files
