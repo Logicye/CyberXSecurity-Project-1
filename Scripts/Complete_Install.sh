@@ -176,7 +176,7 @@ Install() {
 
 #Self Updater
 Update() {
-        wget -O Complete_Install.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        wget -O Updater.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 1
         bash Updater.sh
 }
