@@ -203,7 +203,7 @@ Menu() {
       options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
       select_option "${options[@]}"
       choice=$?
-      if  $Choice -eq "0" )); then
+      if  [$Choice -eq "0"] ; then
               Download_Install_And_Config_Files
       elif  [$Choice -eq "1"] ; then
               Web_Server_Set
