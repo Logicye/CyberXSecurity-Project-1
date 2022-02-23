@@ -143,8 +143,7 @@ Web_Server_Set() {
                 read -p "Enter server number $i's IP:" NextIP
                 echo "$NextIP" >> $WebServerListFileName
         done
-        cat $WebServerListFileName >> /etc/ansible/hosts.txt
-        echo "testing"
+        cat $WebServerListFileName >> /etc/ansible/hosts
         Exit_Or_Return
 }
 
@@ -154,16 +153,16 @@ Elk_Server_Set() {
         echo "Please enter the IP address of your Kibana server: "
         read NewIP
         # sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
-        echo "[elk]" >> /etc/ansible/hosts.txt
-        echo "$NewIP" >> /etc/ansible/hosts.txt
+        echo "[elk]" > $ElkServerListFileName
         echo "$NewIP" > $ElkServerListFileName
+        cat $ElkServerListFileName >> /etc/ansible/hosts
         Exit_Or_Return
 }
 
 #Modify config files
 Config_Modify() {
-        sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
-        echo "nothing here yet"
+        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/filebeat_config.yml
+        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/metricbeat_config.yml
         Exit_Or_Return
 }
 
