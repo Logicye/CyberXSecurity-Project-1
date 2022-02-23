@@ -5,22 +5,21 @@ NoColour='\033[0m'
 LogFile="log.txt"
 
 # IP Addresses to replace
-ReplaceIP="109.111.212.3"
-printf "Replace IP Address: $ReplaceIP\n"
+ReplaceIP=""
 SearchIP="10.1.0.4"
-printf "Search IP Address: $SearchIP\n"
-
 # Directories to replace 
 ReplaceDir=`pwd`
-printf "Replace Directory: $ReplaceDir\n"
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
-printf "Search Directory: $SearchDir\n"
+
+echo "Enter IP Address of Kibana Server:"
+read $ReplaceIP
 
 # Creating Log of All Variables
 echo "$ReplaceIP" >> $LogFile
 echo "$SearchIP" >> $LogFile
 echo "$ReplaceDir" >> $LogFile
 echo "$SearchDir" >> $LogFile
+
 
 
 mkdir ELK_Stack_Install
