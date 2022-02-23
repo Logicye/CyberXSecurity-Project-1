@@ -161,8 +161,8 @@ Elk_Server_Set() {
 
 #Modify config files
 Config_Modify() {
-        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/filebeat_config.yml
-        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/metricbeat_config.yml
+        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/filebeat-config.yml
+        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/metricbeat-config.yml
         Exit_Or_Return
 }
 
