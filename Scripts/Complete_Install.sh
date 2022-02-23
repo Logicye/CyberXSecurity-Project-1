@@ -8,6 +8,7 @@ Green='\033[0;32m'
 Blue='\033[0;34m'
 NoColour='\033[0m'
 LogFile="log.txt"
+HostsFile="/etc/ansible/hosts"
 
 # IP Addresses to replace
 SearchIP="10.1.0.4"
@@ -35,7 +36,7 @@ if [$REPLY -e "y"]
 then
         #modify ansible hosts files to add elk header and ip addresses
         if ! grep -q "[elk]" "/etc/ansible/hosts"; then
-                echo "[elk]" >> "/etc/ansible/hosts.txt"
+                echo "[elk]" >> $HostsFile
         fi
 fi
 
