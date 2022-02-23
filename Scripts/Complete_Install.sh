@@ -14,7 +14,7 @@ Blue='\033[0;34m'
 NoColour='\033[0m'
 
 #Set known variables
-Version="0.2.5"
+Version="0.2.6"
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 LogFile="log.txt"
