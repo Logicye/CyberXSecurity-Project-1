@@ -72,11 +72,11 @@ Config_Modify() {
 Clear_Server_Lists() {
         read -p "Would you like to clear the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$WebServerListFile"
+                echo "" > "$CurDir/$WebServerListFile"
         fi
         read -p "Would you like to clear elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$ElkServerListFile"
+                echo "" > "$CurDir/$ElkServerListFile"
         fi
 }
 
