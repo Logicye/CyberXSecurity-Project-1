@@ -123,5 +123,21 @@ SSH into the control node and follow the steps below:
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
+
+###Command line Install
 To simplify the process please run the commands below to automatically install and configure the systems
+- mkdir ELK_Stack_Install && cd ELK_Stack_Install
+- wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+- wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+- wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+- wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+- **To edit file configs see steps above**
+- ansible-playbook Complete_Install.yml
+
+### Bash File Install
 - 
+
+
+
+
+
