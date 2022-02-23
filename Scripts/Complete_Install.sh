@@ -70,8 +70,14 @@ Config_Modify() {
 
 #Clear Server Lists at Run Time
 Clear_Server_Lists() {
-        echo "" > $WebServerListFile
-        echo "" > $ElkServerListFile
+        read -p "Would you like to clear the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                echo "" > $WebServerListFile
+        fi
+        read -p "Would you like to clear elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                echo "" > $ElkServerListFile
+        fi
 }
 
 #Runs install process once all variables have been given
@@ -91,11 +97,20 @@ Update_Log() {
 
 #Clean up discarded files
 Clean_Up() {
-        rm -r ELK_Stack_Install
-        rm log.txt
-        rm Complete_Install.yml
-
-
+        rm -r $Config_Files
+        read -p "Would you like to delete the log file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm $LogFile
+        fi
+        read -p "Would you like to delete the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm $WebServerListFile
+        fi
+        read -p "Would you like to delete elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm $ElkServerListFile
+        fi
+        #rm $LogFile
 }
 
 
@@ -103,9 +118,10 @@ Clean_Up() {
 #                       Main Arguments And Script
 # -------------------------------------------------------------------------------------------------------------
 
-echo "$Config_Files" >> $LogFile
 Download_Install_And_Config_Files
-echo "$Config_Files" >> $LogFile
+Clear_Server_Lists
+Clean_Up
+exit
 
 
 
