@@ -198,11 +198,9 @@ Clean_Up() {
 
 #primary menu function
 Menu() {
-      printf ("%c", ' _____ _     _  __  ___           _        _ _')
-      printf ("%c", '| ____| |   | |/ / |_ _|_ __  ___| |_ __ _| | |')
-      printf ("%c", '|  _| | |   | ' /   | || '_ \/ __| __/ _` | | |')
-      printf ("%c", '| |___| |___| . \   | || | | \__ \ || (_| | | |')
-      printf ("%c", '|_____|_____|_|\_\ |___|_| |_|___/\__\__,_|_|_|')
+      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+"
+      printf "${Green}|E|L|K| |I|N|S|T|A|L|L|"
+      printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+"
       echo "Select one option using up/down keys and enter to confirm:"
       echo
       options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
