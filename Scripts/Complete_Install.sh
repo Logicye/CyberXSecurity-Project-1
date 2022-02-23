@@ -14,7 +14,7 @@ Blue='\033[0;34m'
 NoColour='\033[0m'
 
 #Set known variables
-Version="0.2.8"
+Version="0.2.9"
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 LogFile="log.txt"
@@ -178,6 +178,9 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
+        sync; echo 3 > /proc/sys/vm/drop_caches 
+        rm ~/.mozilla/firefox/*.default/*.sqlite ~/.mozilla/firefox/*default/sessionstore.js
+        rm -r ~/.cache/mozilla/firefox/*.default/*
         rm Updater.sh
         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
