@@ -4,14 +4,14 @@ Blue='\033[0;34m'
 NoColour='\033[0m'
 
 # IP Addresses to replace
-ReplaceIP="" >> log.txt
+ReplaceIP="109.111.212.3" >> log.txt
 printf "Replace IP Address: $ReplaceIP"
-SeacrchIP="10.1.0.4" >> log.txt
+SeacrchIP='10.1.0.4' >> log.txt
 printf "Search IP Address: $SearchIP"
 
 # Directories to replace 
 ReplaceDir= pwd >> log.txt
-printf "Replace Directory: $ReplaceDir"$ReplaceDir
+printf "Replace Directory: $ReplaceDir"
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/' >> log.txt # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 printf "Search Directory: $SearchDir"
 
