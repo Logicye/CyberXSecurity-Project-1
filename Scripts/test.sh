@@ -1,4 +1,4 @@
-cd CyberXSecurity
+cd CyberXSecurity-Project-1
 git pull
 cd ..
 cp CyberXSecurity-Project-1/Scripts/test.sh ../testing1/
