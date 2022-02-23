@@ -106,12 +106,15 @@ function select_option {
 
 #Download Dependent Function
 Dir_Select() {
-      if ! [ -d "$CurDir/$Config_Files" ]; then
-        read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
+echo "Where Would you like to save the files:"
+read Config_Files
+if ! [ -d "$CurDir/$Config_Files" ]; then
+        read -p "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 mkdir $Config_Files
         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
                 Config_Files=$Config_Files_Default
+                mkdir $Config_Files
         else
                 Dir_Select
         fi
