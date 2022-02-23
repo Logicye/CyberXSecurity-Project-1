@@ -203,23 +203,23 @@ Menu() {
       options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
       select_option "${options[@]}"
       choice=$?
-      if (( $Choice == 0 )); then
+      if (( $Choice == "0" )); then
               Download_Install_And_Config_Files
-      elif (( $Choice == 1 )); then
+      elif (( $Choice == "1" )); then
               Web_Server_Set
-      elif (( $Choice == 2 )); then
+      elif (( $Choice == "2" )); then
               Elk_Server_Set
-      elif (( $Choice == 3 )); then
+      elif (( $Choice == "3" )); then
               Clear_Server_Lists
-      elif (( $Choice == 4 )); then
+      elif (( $Choice == "4" )); then
               Config_Modify
-      elif (( $Choice == 5 )); then
+      elif (( $Choice == "5" )); then
               Update_Log
-      elif (( $Choice == 6 )); then
+      elif (( $Choice == "6" )); then
               Install
-      elif (( $Choice == 7 )); then
+      elif (( $Choice == "7" )); then
               Clean_Up
-      elif (( $Choice == 8 )); then
+      elif (( $Choice == "8" )); then
               exit
       fi
 }
