@@ -31,7 +31,13 @@ echo "No ElkServerList.txt found"
 fi
 ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
-Config_Files="123"
+Config_Files=""
+
+
+
+
+
+
 
 #Install file gather
 Download_Install_And_Config_Files() {
@@ -74,11 +80,11 @@ Config_Modify() {
 Clear_Server_Lists() {
         read -p "Would you like to clear the web server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$CurDir/$WebServerListFile"
+                echo "" > "$WebServerListFileName"
         fi
         read -p "Would you like to clear elk server list file? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$CurDir/$ElkServerListFile"
+                echo "" > "$ElkServerListFileName"
         fi
 }
 
