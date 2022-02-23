@@ -34,22 +34,22 @@ printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
 
 #Set user web servers IP's
 Web_Server_Set() {
-
+        echo "nothing here yet"
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
-
+        echo "nothing here yet"
 }
 
 #Modify config files
 Config_Modify() {
-
+        echo "nothing here yet"
 }
 
 #Runs install process once all variables have been given
 Install() {
-        ansible-playbook 
+        ansible-playbook Complete_Install.yml
 }
 
 #Updates all variables required to specified log files add variables to list to watch outputs
@@ -61,12 +61,17 @@ Update_Log() {
         echo "$WebServers" >> $LogFile
 }
 
-echo 'Enter IP address of Kibana server: '
-echo -n '   -:'
-read ReplaceIP
-echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts. (/etc/ansible/hosts)'
-echo -n '   -:'
-read AddElk
+#Clean up discarded files
+Clean_Up() {
+        rm 
+}
+
+# echo 'Enter IP address of Kibana server: '
+# echo -n '   -:'
+# read ReplaceIP
+# echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts. (/etc/ansible/hosts)'
+# echo -n '   -:'
+# read AddElk
 # echo -n '   -:'
 # select yn in "Yes" "No"; do
 #     case $yn in
