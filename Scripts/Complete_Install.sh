@@ -109,20 +109,14 @@ Clean_Up() {
         read -p "Would you like to delete the log file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $LogFile
-        else
-                break
         fi
         read -p "Would you like to delete the web server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $WebServerListFile
-        else
-                break
         fi
         read -p "Would you like to delete elk server list file? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFile
-        else
-                break
         fi
         #rm $LogFile
 }
