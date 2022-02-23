@@ -19,12 +19,12 @@ DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file dir
 LogFile="log.txt"
 CurDir=`pwd`
 #-----------------
-if ! [-f "$CurDir/WebServerList.txt" ]; then
+if ! [ -f "$CurDir/WebServerList.txt" ]; then
 echo "" > WebServerList.txt
 fi
 WebServerListFile= "$CurDir/WebServerList.txt"
 #-----------------
-if ! [-f "$CurDir/ElkServerList.txt" ]; then
+if ! [ -f "$CurDir/ElkServerList.txt" ]; then
 echo "" > ElkServerList.txt
 fi
 ElkServerListFile= "$CurDir/ElkServerList.txt"
