@@ -35,7 +35,7 @@ Config_Files="123"
 Download_Install_And_Config_Files() {
         echo "Where Would you like to save the files:"
         read Config_Files
-        read -p "Saving to $Config_Files \nContinue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
+        read -p -e "Saving to $Config_Files \nContinue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         mkdir $Config_Files
         cd $Config_Files
         wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
