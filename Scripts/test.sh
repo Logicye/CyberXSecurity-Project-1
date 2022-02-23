@@ -8,6 +8,9 @@ cp CyberXSecurity-Project-1/Scripts/Complete_Install.sh ../testing1/
 rm -r ELK_Stack_Install
 rm log.txt
 bash Complete_Install.sh
-cat log.txt
+if [-f log.txt];
+then
+    cat log.txt
+fi
 sleep 10
 clear
