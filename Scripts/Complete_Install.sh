@@ -104,20 +104,22 @@ function select_option {
     return $selected
 }
 
+#Download Dependent Function
+Dir_Select(){
+      if ! [ -d "$CurDir/$Config_Files" ]; then
+        read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                mkdir $Config_Files
+        elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+                Config_Files=$Config_Files_Default
+        else
+                Dir_Select
+        fi
+fi  
+}
 #Install file gather
 Download_Install_And_Config_Files() {
-        Dir_Select(){
-              if ! [ -d "$CurDir/$Config_Files" ]; then
-                read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
-                if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                        mkdir $Config_Files
-                elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
-                        Config_Files=$Config_Files_Default
-                else
-                        Dir_Select
-                fi
-        fi  
-        }
+
         # echo "Where Would you like to save the files:"
         # read Config_Files
         # if ! [ -d "$CurDir/$Config_Files" ]; then
@@ -211,6 +213,11 @@ Clean_Up() {
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFileName
                 echo "Elk Server List File Removed"
+        fi
+        read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm $CurDir/Complete_Install.sh
+                echo "Installer Removed"
         fi
         #rm $LogFile
         Exit_Or_Return
