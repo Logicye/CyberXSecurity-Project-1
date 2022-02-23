@@ -2,18 +2,26 @@ clear
 Green='\033[0;32m'
 Blue='\033[0;34m'
 NoColour='\033[0m'
+LogFile="log.txt"
 
 # IP Addresses to replace
-ReplaceIP="109.111.212.3" >> log.txt
+ReplaceIP="109.111.212.3"
 printf "Replace IP Address: $ReplaceIP\n"
-SearchIP="10.1.0.4" >> log.txt
+SearchIP="10.1.0.4"
 printf "Search IP Address: $SearchIP\n"
 
 # Directories to replace 
-ReplaceDir=`pwd` >> log.txt
+ReplaceDir=`pwd`
 printf "Replace Directory: $ReplaceDir\n"
-SearchDir='/root/CyberXSecurity-Project-1/Scripts/' >> log.txt  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
+SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 printf "Search Directory: $SearchDir\n"
+
+# Creating Log of All Variables
+echo $ReplaceIP > $LogFile
+echo $SearchIP > $LogFile
+echo $ReplaceDir > $LogFile
+echo $SearchDir > $LogFile
+
 
 mkdir ELK_Stack_Install
 cd ELK_Stack_Install
