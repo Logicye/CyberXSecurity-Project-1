@@ -136,18 +136,32 @@ Download_Install_And_Config_Files() {
 
 #Set user web servers IP's
 Web_Server_Set() {
+        echo "[webservers]"
+        read -p "How many webservers would you like to deploy to?" TotalServers
+        for i in TotalServers
+        do
+                read -p "Enter server number $i's IP:" NextIP
+                echo "$NextIP" >> $WebServerListFileName
+        done
+        cat $WebServerListFileName >> /etc/ansible/hosts.txt
         echo "testing"
         Exit_Or_Return
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
+        read NewIP
+        # sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
+        echo "[elk]" >> /etc/ansible/hosts.txt
+        echo "$NewIP" >> /etc/ansible/hosts.txt
+        echo "$NewIP" > $ElkServerListFileName
         echo "testing"
         Exit_Or_Return
 }
 
 #Modify config files
 Config_Modify() {
+        sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
         echo "nothing here yet"
         Exit_Or_Return
 }
@@ -178,8 +192,8 @@ Install() {
         wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
         cd ../
-        Ansible_File= "$CurDir/$Config_Files/Complete_Install.yml"
-        ansible-playbook "$Ansible_File"
+        # Ansible_File="$CurDir/$Config_Files/Complete_Install.yml"
+        ansible-playbook "$CurDir/$Config_Files/Complete_Install.yml"
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
 }
