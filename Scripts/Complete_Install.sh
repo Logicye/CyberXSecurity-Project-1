@@ -10,7 +10,7 @@ SearchIP="10.1.0.4"
 ReplaceDir=`pwd`
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 
-echo "\n\n\n\n\nEnter IP Address of Kibana Server:"
+echo '\n\n\n\n\nEnter IP Address of Kibana Server: '
 read ReplaceIP
 
 # Creating Log of All Variables
