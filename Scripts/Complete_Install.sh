@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #inintialise
-set -e
 clear
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
