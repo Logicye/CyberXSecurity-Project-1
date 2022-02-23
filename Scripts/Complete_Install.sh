@@ -138,7 +138,7 @@ Download_Install_And_Config_Files() {
 Web_Server_Set() {
         echo "[webservers]" >> $WebServerListFileName
         read -p "How many webservers would you like to deploy to? " TotalServers
-        for i in {1..$TotalServers}
+        for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
                 echo "$NextIP" >> $WebServerListFileName
