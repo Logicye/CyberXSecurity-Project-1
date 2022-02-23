@@ -13,4 +13,3 @@ wget --no-check-certificate --content-disposition -O metricbeat-docker-config.ym
 printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
 CurDir= pwd
 printf "$CurDir"
-printf pwd
