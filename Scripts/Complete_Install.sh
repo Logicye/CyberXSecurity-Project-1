@@ -5,14 +5,13 @@ NoColour='\033[0m'
 LogFile="log.txt"
 
 # IP Addresses to replace
-ReplaceIP=""
 SearchIP="10.1.0.4"
 # Directories to replace 
 ReplaceDir=`pwd`
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 
 echo "Enter IP Address of Kibana Server:"
-read $ReplaceIP
+read ReplaceIP
 
 # Creating Log of All Variables
 echo "$ReplaceIP" >> $LogFile
