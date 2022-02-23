@@ -100,7 +100,7 @@ Clean_Up() {
 # -------------------------------------------------------------------------------------------------------------
 
 echo "$Config_Files" >> $LogFile
-Download_Install_And_Config_Files()
+Download_Install_And_Config_Files
 echo "$Config_Files" >> $LogFile
 
 
