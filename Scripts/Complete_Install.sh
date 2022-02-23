@@ -40,6 +40,68 @@ Config_Files=""
 
 
 
+# -------------------------------------------------------------------------------------------------------------
+#                                       Main Functions
+# -------------------------------------------------------------------------------------------------------------
+
+
+function select_option {
+
+    # little helpers for terminal print control and key input
+    ESC=$( printf "\033")
+    cursor_blink_on()  { printf "$ESC[?25h"; }
+    cursor_blink_off() { printf "$ESC[?25l"; }
+    cursor_to()        { printf "$ESC[$1;${2:-1}H"; }
+    print_option()     { printf "   $1 "; }
+    print_selected()   { printf "  $ESC[7m $1 $ESC[27m"; }
+    get_cursor_row()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${ROW#*[}; }
+    key_input()        { read -s -n3 key 2>/dev/null >&2
+                         if [[ $key = $ESC[A ]]; then echo up;    fi
+                         if [[ $key = $ESC[B ]]; then echo down;  fi
+                         if [[ $key = ""     ]]; then echo enter; fi; }
+
+    # initially print empty new lines (scroll down if at bottom of screen)
+    for opt; do printf "\n"; done
+
+    # determine current screen position for overwriting the options
+    local lastrow=`get_cursor_row`
+    local startrow=$(($lastrow - $#))
+
+    # ensure cursor and input echoing back on upon a ctrl+c during read -s
+    trap "cursor_blink_on; stty echo; printf '\n'; exit" 2
+    cursor_blink_off
+
+    local selected=0
+    while true; do
+        # print options by overwriting the last lines
+        local idx=0
+        for opt; do
+            cursor_to $(($startrow + $idx))
+            if [ $idx -eq $selected ]; then
+                print_selected "$opt"
+            else
+                print_option "$opt"
+            fi
+            ((idx++))
+        done
+
+        # user key control
+        case `key_input` in
+            enter) break;;
+            up)    ((selected--));
+                   if [ $selected -lt 0 ]; then selected=$(($# - 1)); fi;;
+            down)  ((selected++));
+                   if [ $selected -ge $# ]; then selected=0; fi;;
+        esac
+    done
+
+    # cursor position back to normal
+    cursor_to $lastrow
+    printf "\n"
+    cursor_blink_on
+
+    return $selected
+}
 
 #Install file gather
 Download_Install_And_Config_Files() {
@@ -61,21 +123,25 @@ Download_Install_And_Config_Files() {
         wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
         cd ../
+        Exit_Or_Return
 }
 
 #Set user web servers IP's
 Web_Server_Set() {
         echo "testing"
+        Exit_Or_Return
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
         echo "testing"
+        Exit_Or_Return
 }
 
 #Modify config files
 Config_Modify() {
         echo "nothing here yet"
+        Exit_Or_Return
 }
 
 #Clear Server Lists at Run Time
@@ -88,11 +154,13 @@ Clear_Server_Lists() {
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 echo "" > "$ElkServerListFileName"
         fi
+        Exit_Or_Return
 }
 
 #Runs install process once all variables have been given
 Install() {
         ansible-playbook Complete_Install.yml
+        Exit_Or_Return
 }
 
 #Updates all variables required to specified log files add variables to list to watch outputs
@@ -103,6 +171,7 @@ Update_Log() {
         # echo "$ReplaceDir" >> $LogFile
         # echo "$SearchDir" >> $LogFile
         # echo "$WebServers" >> $LogFile
+        Exit_Or_Return
 }
 
 #Clean up discarded files
@@ -124,18 +193,28 @@ Clean_Up() {
                 echo "Elk Server List File Removed"
         fi
         #rm $LogFile
+        Exit_Or_Return
 }
 
 #primary menu function
 Menu() {
-        Exit_Or_Return
+      echo "Select one option using up/down keys and enter to confirm:"
+        echo
+
+        options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies")
+
+        select_option "${options[@]}"
+        choice=$?
+
+        echo "Choosen index = $choice"
+        echo "        value = ${options[$choice]}"  
 }
 
 #Exit or return function, decides whether or not to head back to menu or close out of the installer
-Exit_Or_Return() {
+function Exit_Or_Return {
         read -p "Would you like to return to menu? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "y"#run the primary menu function once added
+                Menu
         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
                 exit
         else
@@ -145,7 +224,7 @@ Exit_Or_Return() {
 
 
 # -------------------------------------------------------------------------------------------------------------
-#                       Main Arguments And Script
+#                                       Main Arguments And Script
 # -------------------------------------------------------------------------------------------------------------
 
 Menu
