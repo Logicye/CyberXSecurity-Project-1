@@ -168,17 +168,6 @@ Config_Modify() {
 
 #Runs install process once all variables have been given
 Install() {
-        Dir_Select
-        cd $Config_Files
-        wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
-        printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
-        printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
-        printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
-        printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
-        cd ../
         # Ansible_File="$CurDir/$Config_Files/Complete_Install.yml"
         ansible-playbook "$CurDir/$Config_Files/Complete_Install.yml"
         printf "${Green} Install Complete!${NoColour}"
