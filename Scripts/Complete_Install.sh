@@ -77,6 +77,7 @@ Install() {
 
 #Updates all variables required to specified log files add variables to list to watch outputs
 Update_Log() {
+        echo "testing"
         # echo "$ReplaceIP" >> $LogFile
         # echo "$SearchIP" >> $LogFile
         # echo "$ReplaceDir" >> $LogFile
