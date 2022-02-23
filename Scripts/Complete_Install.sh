@@ -19,27 +19,28 @@ echo 'Enter IP address of Kibana server: '
 echo -n '   -:'
 read ReplaceIP
 echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts. (/etc/ansible/hosts)'
-# echo -n '   -:'
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) if cat /etc/ansible/hosts.txt | grep -q "elk"; then
-                        echo  "[elk]" >> /etc/ansible/hosts.txt
-                fi; break;;
-        No ) exit;;
-    esac
-done
-# read REPLY
-# if [[$REPLY= "y"]]
-# then
-#         #modify ansible hosts files to add elk header and ip addresses
-#         if not grep -q "[elk]" "/etc/ansible/hosts"; then
-#                 echo --silent "[elk]" >> /etc/ansible/hosts.txt
-#         fi
-
-# fi
-
 echo -n '   -:'
-read
+read AddElk
+# echo -n '   -:'
+# select yn in "Yes" "No"; do
+#     case $yn in
+#         Yes ) if cat /etc/ansible/hosts.txt | grep -q "elk"; then
+                        
+#                 fi; break;;
+#         No ) exit;;
+#     esac
+# done
+# read REPLY
+if [$REPLY -e "y"]
+then
+        #modify ansible hosts files to add elk header and ip addresses
+        if ! grep -q "[elk]" "/etc/ansible/hosts"; then
+                echo "[elk]" >> /etc/ansible/hosts.txt
+        fi
+fi
+
+# echo -n '   -:'
+# read
 
 echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
 echo 'Enter IP Addresses of Web Servers'
