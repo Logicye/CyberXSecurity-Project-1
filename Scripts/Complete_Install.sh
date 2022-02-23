@@ -126,6 +126,7 @@ Download_Install_And_Config_Files() {
         #                 mkdir $Config_Files
         #         fi
         # fi
+        Dir_Select
         cd $Config_Files
         wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
