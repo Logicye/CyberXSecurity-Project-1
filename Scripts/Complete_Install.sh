@@ -20,6 +20,12 @@ echo -n '   -:'
 read ReplaceIP
 echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts y/n. (/etc/ansible/hosts)'
 echo -n '   -:'
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) make install; break;;
+        No ) exit;;
+    esac
+done
 read REPLY
 if [[$REPLY= "y"]]
 then
