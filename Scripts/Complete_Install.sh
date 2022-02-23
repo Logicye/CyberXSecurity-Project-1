@@ -178,6 +178,7 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
+        rm Updater.sh
         wget -O Updater.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
         bash Updater.sh
