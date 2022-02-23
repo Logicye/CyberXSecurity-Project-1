@@ -9,6 +9,7 @@ rm -r ELK_Stack_Install
 rm log.txt
 bash Complete_Install.sh
 $logDir= `pwd`
+printf "$logDir"
 if [-f "$logDir/log.txt"];
 then
     cat log.txt
