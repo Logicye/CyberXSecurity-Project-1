@@ -248,6 +248,7 @@ Menu() {
                 ;;
                 8)
                 exit
+        esac
 }
 
 #Exit or return function, decides whether or not to head back to menu or close out of the installer
