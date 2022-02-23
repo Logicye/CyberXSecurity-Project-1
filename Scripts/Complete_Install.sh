@@ -17,10 +17,10 @@ SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file dire
 printf "Search Directory: $SearchDir\n"
 
 # Creating Log of All Variables
-echo $ReplaceIP > $LogFile
-echo $SearchIP > $LogFile
-echo $ReplaceDir > $LogFile
-echo $SearchDir > $LogFile
+echo "$ReplaceIP" > $LogFile
+echo "$SearchIP" > $LogFile
+echo "$ReplaceDir" > $LogFile
+echo "$SearchDir" > $LogFile
 
 
 mkdir ELK_Stack_Install
