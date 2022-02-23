@@ -1,4 +1,3 @@
-rm -r -v !("CyberXSecurity-Project-1"|"test.sh")
 cd CyberXSecurity
 git pull
 cd ..
