@@ -16,9 +16,21 @@ ReplaceDir=`pwd`
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 
 echo 'Enter IP address of Kibana server: '
-echo -n '   -'
+echo -n '   -:'
 read ReplaceIP
-echo 'Would you like to add the Kibana Server to an [elk] list in ansible hosts (/etc/ansible/hosts)'
+echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts y/n. (/etc/ansible/hosts)'
+echo -n '   -:'
+read REPLY
+if $REPLY= "y"; then
+        #modify ansible hosts files to add elk header and ip addresses
+        if not grep -q "[elk]" "/etc/ansible/hosts"; then
+                echo --silent "[elk]" >> /etc/ansible/hosts.txt
+        fi
+
+fi
+
+echo -n '   -:'
+read
 
 echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
 echo 'Enter IP Addresses of Web Servers'
@@ -28,6 +40,7 @@ echo "$ReplaceIP" >> $LogFile
 echo "$SearchIP" >> $LogFile
 echo "$ReplaceDir" >> $LogFile
 echo "$SearchDir" >> $LogFile
+echo "$WebServers" >> $LogFile
 
 
 
