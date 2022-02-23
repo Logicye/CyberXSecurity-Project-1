@@ -135,7 +135,7 @@ Menu() {
 Exit_Or_Return() {
         read -p "Would you like to return to menu? (Y/N): " confirm #&& [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                #run the primary menu function once added
+                echo "y"#run the primary menu function once added
         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
                 exit
         else
