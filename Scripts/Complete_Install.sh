@@ -22,7 +22,7 @@ echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts
 # echo -n '   -:'
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) if not grep -q "[elk]" "/etc/ansible/hosts"; then
+        Yes ) if [grep -q "[elk]" "/etc/ansible/hosts"]; then
                         echo --silent "[elk]" >> /etc/ansible/hosts.txt
                 fi; break;;
         No ) exit;;
