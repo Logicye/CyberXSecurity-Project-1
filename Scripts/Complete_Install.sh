@@ -14,4 +14,4 @@ printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
 wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
 printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
 CurDir= pwd
-printf "${Blue} $CurDir"
+printf ${Blue}"$CurDir"
