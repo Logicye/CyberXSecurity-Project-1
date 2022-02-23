@@ -33,7 +33,7 @@ echo "ElkServerList.txt created"
 fi
 ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
-Config_Files=""
+Config_Files="Elk_Install_Files"
 Config_Files_Default="Elk_Install_Files"
 
 
@@ -105,7 +105,7 @@ function select_option {
 }
 
 #Download Dependent Function
-Dir_Select(){
+Dir_Select() {
       if ! [ -d "$CurDir/$Config_Files" ]; then
         read -p "Folder $Config_Files does not exist. \nWould you like you make a new one? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
@@ -267,10 +267,13 @@ Menu() {
 function Exit_Or_Return {
         read -p "Would you like to return to menu? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                clear
                 Menu
         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+                clear
                 exit
         else
+                clear
                 Exit_Or_Return
         fi
 }
