@@ -166,19 +166,6 @@ Config_Modify() {
         Exit_Or_Return
 }
 
-#Clear Server Lists at Run Time
-Clear_Server_Lists() {
-        read -p "Would you like to clear the web server list file? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$WebServerListFileName"
-        fi
-        read -p "Would you like to clear elk server list file? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                echo "" > "$ElkServerListFileName"
-        fi
-        Exit_Or_Return
-}
-
 #Runs install process once all variables have been given
 Install() {
         Dir_Select
@@ -196,17 +183,6 @@ Install() {
         ansible-playbook "$CurDir/$Config_Files/Complete_Install.yml"
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
-}
-
-#Updates all variables required to specified log files add variables to list to watch outputs
-Update_Log() {
-        echo "testing"
-        # echo "$ReplaceIP" >> $LogFile
-        # echo "$SearchIP" >> $LogFile
-        # echo "$ReplaceDir" >> $LogFile
-        # echo "$SearchDir" >> $LogFile
-        # echo "$WebServers" >> $LogFile
-        Menu
 }
 
 #Clean up discarded files
@@ -248,7 +224,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+\n${NoColour}"
       echo "Select one option using up/down keys and enter to confirm:"
       echo
-      options=("Download Files" "Add Webservers" "Change Elk Server" "Clear Server Lists" "Modify Config Files" "Update logs" "Install" "Remove Installer And All Dependencies" "Quit")
+      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Quit")
       select_option "${options[@]}"
       choice=$?
 
@@ -262,22 +238,17 @@ Menu() {
                 Elk_Server_Set
                 ;;
                 3)
-                Clear_Server_Lists
-                ;;
-                4)
                 Config_Modify
                 ;;
-                5)
-                Update_Log
-                ;;
-                6)
+                4)
                 Install
                 ;;
-                7)
+                5)
                 Clean_Up
                 ;;
-                8)
+                6)
                 exit
+                ;;
         esac
 }
 
