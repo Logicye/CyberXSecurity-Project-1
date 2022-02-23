@@ -174,6 +174,11 @@ Install() {
         Exit_Or_Return
 }
 
+#Self Updater
+Update() {
+        wget -O Complete_Install.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+}
+
 #Clean up discarded files
 Clean_Up() {
         rm -r $Config_Files
@@ -213,7 +218,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+\n${NoColour}"
       echo "Select one option using up/down keys and enter to confirm:"
       echo
-      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Quit")
+      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Update" "Quit")
       select_option "${options[@]}"
       choice=$?
 
@@ -236,6 +241,9 @@ Menu() {
                 Clean_Up
                 ;;
                 6)
+                Update
+                ;;
+                7)
                 exit
                 ;;
         esac
