@@ -94,24 +94,34 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the [Complete_Install.yml](Scripts/Complete_Install.yml) file to the ansible container.
+- Copy the [filebeat_config.yml](Scripts/filebeat_config.yml) file to the ansible container.
+- Copy the [metricbeat_config.yml](Scripts/metricbeat_config.yml) file to the ansible container.
 - Update the [filebeat_config.yml](Scripts/filebeat_config.yml) file to include:
   - Scroll to line #1106 and replace the IP address with the IP address of your ELK machine.
-    - Replace the username with your own
-    - Replace the password with your own
-  - Scroll to line #1806 and replace the IP address with the IP address of your ELK machine.
-  - 
+    - Replace the IP Address with your own.
+    - Replace the username with your own.
+    - Replace the password with your own.
+  - Scroll to line #1806
+    - Replace the IP address with the IP address of your ELK machine.
 - Update the [metricbeat_config.yml](Scripts/metricbeat_config.yml) file to include:
-  - s
-  - a
-  - a
+  - Scroll to line #93
+    - Replace the IP Address with your own.
+    - Replace the username with your own.
+    - Replace the password with your own.
+  - Scroll to line #61
+    - Replace the IP address with the IP address of your ELK machine.
 - Update the [Complete_Install.yml](Scripts/Complete_Install.yml) file so that the directories for the config files match the sources address in the ansible container:
   - Line 79: Filebeat config location
   - Line 105: Metricbeat config location
+  - Line 113: Metricbeat docker config location
 - Run the playbook, and navigate to the end of the command line to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- To update the allow ansible to connect to specific servers you must edit the hosts file in the /etc/ansible/ directory. To add a machine type its public or private IP address, and to add an new host group, write the name you wish to call your host group and encase it in sqaure brackets i.e.([]).
+- Ensure that the name you have given each server group matches that in the [Complete_Install.yml](Scripts/Complete_Install.yml) file under the hosts dection in lines 4 and 66.
+- To navigate to your Elk server please find the servers public ip through the server hosting provider i.e.(Azure) and replace it in the specified part of the url below.
+  -  http://[YourVMIP]:5601/app/kibana.
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
+To simplify the process please run the commands below to automatically install and configure the systems
+- 
