@@ -176,7 +176,9 @@ Install() {
 
 #Self Updater
 Update() {
-        wget -O Complete_Install.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+        wget -O $CurDir/Complete_Install.sh https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+        sleep 3
+        bash Complete_Install.sh
 }
 
 #Clean up discarded files
