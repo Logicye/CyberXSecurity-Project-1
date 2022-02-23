@@ -21,11 +21,13 @@ CurDir=`pwd`
 #-----------------
 if ! [ -f "$CurDir/WebServerList.txt" ]; then
 echo "" > WebServerList.txt
+echo "No WebServerList.txt found"
 fi
 WebServerListFileName="$CurDir/WebServerList.txt"
 #-----------------
 if ! [ -f "$CurDir/ElkServerList.txt" ]; then
 echo "" > ElkServerList.txt
+echo "No ElkServerList.txt found"
 fi
 ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
