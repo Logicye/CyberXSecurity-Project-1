@@ -2,6 +2,7 @@ if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
         exit 1;
 fi
+
 clear
 Green='\033[0;32m'
 Blue='\033[0;34m'
@@ -14,8 +15,13 @@ SearchIP="10.1.0.4"
 ReplaceDir=`pwd`
 SearchDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 
-echo 'Enter IP Address of Kibana Server: '
+echo 'Enter IP address of Kibana server: '
+echo -n '   -'
 read ReplaceIP
+echo 'Would you like to add the Kibana Server to an [elk] list in ansible hosts (/etc/ansible/hosts)'
+
+echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
+echo 'Enter IP Addresses of Web Servers'
 
 # Creating Log of All Variables
 echo "$ReplaceIP" >> $LogFile
