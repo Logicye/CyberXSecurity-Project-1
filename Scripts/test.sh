@@ -8,9 +8,9 @@ cp CyberXSecurity-Project-1/Scripts/Complete_Install.sh ../testing1/
 rm -r ELK_Stack_Install
 rm log.txt
 bash Complete_Install.sh
-$logDir= `pwd`
+$logDir=`pwd`
 printf "$logDir"
-if [-f "$logDir/log.txt"];
+if [ -f "$logDir/log.txt" ];
 then
     cat log.txt
 fi
