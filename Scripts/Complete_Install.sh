@@ -204,6 +204,7 @@ Menu() {
       select_option "${options[@]}"
       choice=$?
       echo "${options[$choice]}"  
+      echo"$choice"
 #       if [ $Choice == 0 ]; then
 #               Download_Install_And_Config_Files
 #       elif [ $Choice == 1 ]; then
