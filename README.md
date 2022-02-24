@@ -121,8 +121,6 @@ SSH into the control node and follow the steps below:
 - To navigate to your Elk server please find the servers public ip through the server hosting provider i.e.(Azure) and replace it in the specified part of the url below.
   -  http://[YourVMIP]:5601/app/kibana.
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
-
 
 ###Command line Install
 To simplify the process please run the commands below to automatically install and configure the systems
@@ -135,7 +133,7 @@ To simplify the process please run the commands below to automatically install a
 - ansible-playbook Complete_Install.yml
 
 ### Bash File Install
-- wget -O Complete_Install https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh && chmod +x Complete_Install && chmod 777 Complete_Install && Complete_Install 
+- wget -O Complete_Install https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh && chmod u+x Complete_Install && chmod 777 Complete_Install && sudo mv Complete_Install /bin && sudo Complete_Install
 - Follow the steps in the installer to configer and install the elk stack and it's dependecies.
 
 
