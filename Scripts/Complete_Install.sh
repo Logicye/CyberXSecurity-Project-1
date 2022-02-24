@@ -39,9 +39,6 @@ Config_Files_Default="Elk_Install_Files"
 
 
 
-
-
-
 # -------------------------------------------------------------------------------------------------------------
 #                                       Main Functions
 # -------------------------------------------------------------------------------------------------------------
@@ -142,7 +139,7 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                echo "$NextIP" >> $WebServerListFileName
+                echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
         cat $WebServerListFileName >> /etc/ansible/hosts
         Exit_Or_Return
@@ -155,7 +152,7 @@ Elk_Server_Set() {
         read NewIP
         # sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
         echo "[elk]" > $ElkServerListFileName
-        echo "$NewIP" > $ElkServerListFileName
+        echo "$NewIP" > "$ElkServerListFileName ansible_python_interpreter=/usr/bin/python3"
         cat $ElkServerListFileName >> /etc/ansible/hosts
         Exit_Or_Return
 }
@@ -220,6 +217,11 @@ Clean_Up() {
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $ElkServerListFileName
                 echo "Elk Server List File Removed"
+        fi
+        read -p "Would you like to delete the Complete installer playbook? (Y/N): " confirm  
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm $CurDir/Complete_Install.yml
+                echo "Playbook Removed"
         fi
         read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
@@ -289,7 +291,7 @@ function Exit_Or_Return {
 #                                       Main Arguments And Script
 # -------------------------------------------------------------------------------------------------------------
 
-# Update_Boot
+# Update_Boot # Loop error
 Menu
 
 
