@@ -3,6 +3,28 @@
 #inintialise
 # set -e
 clear
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+        case $1 in
+                -c|--clean-boot)
+                Clean_Boot
+                echo "CLEAN BOOT(Removing all files...)"
+                sleep 2
+                Menu
+                ;;
+                -u|--update-boot)
+                echo "Updating..."
+                sleep 2
+                Update_Boot
+                ;;
+                *)
+                menu
+                ;;
+  esac
+done
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
         exit 1;
@@ -14,28 +36,27 @@ Blue='\033[0;34m'
 NoColour='\033[0m'
 
 #Set known variables
-Version="0.2.11"
+Version="0.3.0"
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
-LogFile="log.txt"
 CurDir=`pwd`
 #-----------------
-if ! [ -f "$CurDir/WebServerList.txt" ]; then
-echo "No WebServerList.txt found"
-echo "" > WebServerList.txt
-echo "WebServerList.txt created"
-fi
-WebServerListFileName="$CurDir/WebServerList.txt"
-#-----------------
-if ! [ -f "$CurDir/ElkServerList.txt" ]; then
-echo "No ElkServerList.txt found"
-echo "" > ElkServerList.txt
-echo "ElkServerList.txt created"
-fi
-ElkServerListFileName="$CurDir/ElkServerList.txt"
+# if ! [ -f "$CurDir/WebServerList.txt" ]; then
+# echo "No WebServerList.txt found"
+# echo "" > WebServerList.txt
+# echo "WebServerList.txt created"
+# fi
+# WebServerListFileName="$CurDir/WebServerList.txt"
+# #-----------------
+# if ! [ -f "$CurDir/ElkServerList.txt" ]; then
+# echo "No ElkServerList.txt found"
+# echo "" > ElkServerList.txt
+# echo "ElkServerList.txt created"
+# fi
+# ElkServerListFileName="$CurDir/ElkServerList.txt"
 #-----------------
 Config_Files="Elk_Install_Files"
-Config_Files_Default="Elk_Install_Files"
+Config_Files_Default="/etc/Elk_Installer"
 
 
 
@@ -104,31 +125,63 @@ function select_option {
 
 #Download Dependent Function
 Dir_Select() {
-if ! [ -d "$CurDir/$Config_Files" ]; then
-        read -p "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+read -p "Would you like to set your own download folder(Y/N)?" confirm
+if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+        read -p "Please enter the folder path you would like to install to. If It does not exit is will be automatically created:" Config_Files
+        if ! [ -d "$Config_Files" ]; then
                 mkdir $Config_Files
-        elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
-                Config_Files=$Config_Files_Default
-                mkdir $Config_Files
-        else
-                Dir_Select
         fi
-fi  
+elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+        Config_Files=$Config_Files_Default
+        mkdir $Config_Files
+else
+        exit
+fi
+# if ! [ -d "$CurDir/$Config_Files" ]; then
+#         mkdir $Config_Files
+#         read -p "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 mkdir $Config_Files
+#         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+#                 Config_Files=$Config_Files_Default
+#                 mkdir $Config_Files
+#         else
+#                 Dir_Select
+#         fi
+# fi  
 }
+
+
 #Install file gather
 Download_Install_And_Config_Files() {
         Dir_Select
-        cd $Config_Files
-        wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+        if ! [ -d "$Config_Files" ]; then
+                clear
+                echo "Error: Folder Does not exist. Exiting"
+                sleep 3
+                menu
+        fi
+        wget --no-check-certificate --content-disposition -O $Config_Files/Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+        wget --no-check-certificate --content-disposition -O $Config_Files/filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
         printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+        wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
         printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+        wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
-        cd ../
+        if ! [ -f "$Config_Files/WebServerList.txt" ]; then
+                echo "No WebServerList.txt found"
+                echo "" > $Config_Files/WebServerList.txt
+                echo "WebServerList.txt created"
+        fi
+        WebServerListFileName="$Config_Files/WebServerList.txt"
+        #-----------------
+        if ! [ -f "$Config_Files/ElkServerList.txt" ]; then
+                echo "No ElkServerList.txt found"
+                echo "" > $Config_Files/ElkServerList.txt
+                echo "ElkServerList.txt created"
+        fi
+        ElkServerListFileName="$Config_Files/ElkServerList.txt"
         Exit_Or_Return
 }
 
@@ -159,15 +212,15 @@ Elk_Server_Set() {
 
 #Modify config files
 Config_Modify() {
-        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/filebeat-config.yml
-        sed -i "s/$DefaultIP/$NewIP/g" $CurDir/$Config_Files/metricbeat-config.yml
-        Exit_Or_Return
+        sed -i "s/$DefaultIP/$NewIP/g" $Config_Files/filebeat-config.yml
+        sed -i "s/$DefaultIP/$NewIP/g" $Config_Files/metricbeat-config.yml
+        echo "${Green}Config Complete!${NoColour}"
 }
 
 #Runs install process once all variables have been given
 Install() {
         # Ansible_File="$CurDir/$Config_Files/Complete_Install.yml"
-        ansible-playbook "$CurDir/$Config_Files/Complete_Install.yml"
+        ansible-playbook "$Config_Files/Complete_Install.yml"
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
 }
@@ -176,10 +229,10 @@ Install() {
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         sync; echo 3 > /proc/sys/vm/drop_caches 
-        rm Updater.sh
-        wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        rm $Config_Files/Updater.sh
+        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
-        bash Updater.sh
+        sudo bash $Config_Files/Updater.sh
         exit
 }
 
@@ -188,26 +241,19 @@ Update_Boot() {
         apt upgrade -yy
         apt install wget
         sync; echo 3 > /proc/sys/vm/drop_caches 
-        rm Complete_Install.sh
-        wget -m --no-cache --no-check-certificate -O Complete_Install.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
-        rm Updater.sh
+        rm $Config_Files/Update.sh
         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-        clear
+        sudo bash $Config_Files/Updater.sh
+        exit
+        # rm Complete_Install.sh
+        # wget -m --no-cache --no-check-certificate -O Complete_Install.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+        # rm Updater.sh
+        # wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        # clear
 }
 
 #Clean up discarded files
 Clean_Up() {
-        rm -r $Config_Files
-        read -p "Would you like to delete the config file folder? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm -r $Config_Files
-                echo "Config Files Removed"
-        fi
-        read -p "Would you like to delete the log file? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $LogFile
-                echo "Log File Removed"
-        fi
         read -p "Would you like to delete the web server list file? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 rm $WebServerListFileName
@@ -220,20 +266,34 @@ Clean_Up() {
         fi
         read -p "Would you like to delete the Complete installer playbook? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $CurDir/Complete_Install.yml
+                rm $Config_Files/Complete_Install.yml
                 echo "Playbook Removed"
         fi
         read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $CurDir/Complete_Install.sh
+                rm /bin/Complete_Install
                 echo "Installer Removed"
+        fi
+                read -p "Would you like to delete the config file folder? (Y/N): " confirm  
+        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+                rm -r $Config_Files
+                echo "Config Files Removed"
         fi
         #rm $LogFile
         Exit_Or_Return
 }
 
+Clean_Boot() {
+        rm /bin/Complete_Install
+        rm -r $Config_Files
+        wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        sudo bash $Config_Files/Updater.sh
+        exit
+}
+
 #primary menu function
 Menu() {
+      clear
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
       printf "${Green}|E|L|K| |I|N|S|T|A|L|L|E|R|\n"
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n${NoColour}"
@@ -349,5 +409,3 @@ Menu
 #Replace
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" filebeat-config.yml
 #sed -n -i "s/10.1.0.4/$ReplaceIP/g" metricbeat-config.yml
-
-# Test Update Install token "111"
