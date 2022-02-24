@@ -135,7 +135,7 @@ To simplify the process please run the commands below to automatically install a
 - ansible-playbook Complete_Install.yml
 
 ### Bash File Install
-- wget -O Complete_Install https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh && chmod +x 777 Complete_Install && Complete_Install 
+- wget -O Complete_Install https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh && chmod +x Complete_Install && chmod 777 Complete_Install && Complete_Install 
 - Follow the steps in the installer to configer and install the elk stack and it's dependecies.
 
 
