@@ -229,6 +229,9 @@ Install() {
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         sync; echo 3 > /proc/sys/vm/drop_caches 
+        if ! [ -d "$Config_Files" ]; then
+                mkdir $Config_Files
+        fi
         rm $Config_Files/Updater.sh
         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
