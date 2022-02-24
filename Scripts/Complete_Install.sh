@@ -237,8 +237,6 @@ Update() {
 }
 
 Update_Boot() {
-        apt update
-        apt upgrade -yy
         apt install wget
         sync; echo 3 > /proc/sys/vm/drop_caches 
         rm $Config_Files/Update.sh

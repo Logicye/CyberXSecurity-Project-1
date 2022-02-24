@@ -4,8 +4,6 @@
 Version="0.3.0"
 echo "$Version - Version (Updater)"
 sleep 5
-apt update
-apt upgrade -yy
 apt install wget
 sync; echo 3 > /proc/sys/vm/drop_caches 
 rm Complete_Install.sh
