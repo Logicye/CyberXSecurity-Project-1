@@ -1,5 +1,5 @@
 #! /bin/bash
-Version="Version - 0.3.11.16"
+Version="Version - 0.3.11.17"
 VersionCheckSum='Version="'$Version'"'
 echo "$VersionCheckSum"
 sleep 2
@@ -11,7 +11,7 @@ if [ $(whoami) != 'root' ]; then
         exit 1;
 fi
 
-VersionCheck= $(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
+VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
 # VersionCheck= `grep -m 1 "Version - " $Config_Files/version.txt`
 # rm $Config_Files/version.txt
 
