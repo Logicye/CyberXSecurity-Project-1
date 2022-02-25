@@ -185,6 +185,9 @@ Download_Install_And_Config_Files() {
 
 #Set user web servers IP's
 Web_Server_Set() {
+        webserverstate=$(cat /etc/ansible/hosts | grep 'webservers')
+        echo $webserverstate
+        sleep 2
         if ! [ $(cat /etc/ansible/hosts | grep 'webservers') == "[webservers]" ];then
                 echo "webservers does not exist"
         else
