@@ -220,6 +220,8 @@ Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
         if ! [ $VersionCheck == "$Version" ]; then
+                echo "Updating..."
+                Sleep 1
                 sync; echo 3 > /proc/sys/vm/drop_caches 
                 if ! [ -d "$Config_Files" ]; then
                         mkdir $Config_Files
@@ -230,6 +232,7 @@ Update() {
                 exit
         else
                 echo "Already up to date!"
+                Sleep 1
                 Menu
         fi
 }
