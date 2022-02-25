@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.7"
+Version="Version - 0.3.13.8"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -168,9 +168,9 @@ Download_Install_And_Config_Files() {
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         printf "${Green}        All Downloads Complete${NoColour}\n\n"
         sleep 2
-        sed -i "$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
-        sed -i "$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
-        sed -i "$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
+        sed -i "/$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
+        sed -i "/$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
+        sed -i "/$DefaultDir/$Config_Files" $Config_Files/Complete_Install.yml
         printf "${Green}       Complete_Install.yml Configured${NoColour}\n\n"
         sleep 2
         Menu
