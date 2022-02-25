@@ -171,6 +171,8 @@ Download_Install_And_Config_Files() {
         sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
         sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
         sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
+        printf "${Green}       Complete_Install.yml Configured${NoColour}\n\n"
+        sleep 2
         Menu
 }
 
