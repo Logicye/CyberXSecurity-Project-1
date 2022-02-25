@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.4.1.2"
+Version="Version - 0.4.2"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -19,6 +19,16 @@ while [[ $# -gt 0 ]]; do
                         if ! [ -d "$Config_Files" ]; then
                                 mkdir $Config_Files
                         fi
+                ;;
+                -r|--remove)
+                        clear
+                        echo "Uninstalling..."
+                        sleep 1
+                        rm -r $Config_Files
+                        rm /bin/Complete_Install
+                        echo "  Uninstalled!"
+                        sleep 1
+                        exit
                 ;;
                 -u|--update-boot)
                         clear
