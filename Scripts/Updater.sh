@@ -1,7 +1,7 @@
 #!/bin/bash
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh --output Complete_Install.sh
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-Version="0.3.1"
+Version="0.3.2"
 echo "$Version - Version (Updater)"
 sleep 5
 
@@ -10,7 +10,7 @@ POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
         -d|--directory)
-            Directory=$2
+            Directory= "$2"
         ;;
         *)
         ;;
