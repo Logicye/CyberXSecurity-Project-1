@@ -31,7 +31,7 @@ while [[ $# -gt 0 ]]; do
                         clear
                         echo "$VersionCheck"
                         sleep 1
-                        if ! [ $VersionCheck == $VersionCheckSum ]; then
+                        if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                                 clear
                                 echo "Updating..."
                                 sleep 2 
