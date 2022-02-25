@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.40"
+Version="Version - 0.3.12.41"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -27,7 +27,6 @@ while [[ $# -gt 0 ]]; do
                         if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                                 clear
                                 echo "Updating..."
-                                sleep 1
                                 if ! [ -d "$Config_Files" ]; then
                                         mkdir $Config_Files
                                 fi
@@ -259,11 +258,9 @@ Update() {
         clear
         VersionCheckSum='Version="'$Version'"'
         VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
-        sleep 1
         if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                 clear
                 echo "Updating..."
-                sleep 1 
                 if ! [ -d "$Config_Files" ]; then
                         mkdir $Config_Files
                 fi
