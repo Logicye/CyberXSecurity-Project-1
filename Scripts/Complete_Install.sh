@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.34"
+Version="Version - 0.3.12.35"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -205,10 +205,11 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                IPExistCheck=$(grep "$NextIP" /etc/ansible/hosts)
+                IPExistCheck=$(grep -m 1"$NextIP" /etc/ansible/hosts)
                 echo "$IPExistCheck"
+                sleep 1
                 if [ "$IPExistCheck" == "$NextIP" ];then
-                        echo "IP Already in hosts file"
+                        echo "$NextIP Already in hosts file"
                 else
                         sed -i "/\[webservers\]/a $NextIP" /etc/ansible/hosts
                 fi
@@ -218,6 +219,7 @@ Web_Server_Set() {
                 # sed -i "\[webservers\]/a $NextIP" /etc/ansible/hosts
                 # echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
+        Menu
         # echo "" >> $WebServerListFileName
         # cat $WebServerListFileName >> /etc/ansible/hosts
 }
