@@ -4,6 +4,44 @@ Version="0.3.1"
 #inintialise
 # set -e
 
+clear
+if [ $(whoami) != 'root' ]; then
+        echo "Must be root to run $0"
+        exit 1;
+fi
+
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+        case $1 in
+                -c|--clean-boot)
+                        echo "CLEAN BOOT(Removing all files...)"
+                        sleep 1
+                        rm -r $Config_Files
+                        if ! [ -d "$Config_Files" ]; then
+                                mkdir $Config_Files
+                        fi
+                        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+                        sudo bash $Config_Files/Updater.sh -d $Config_Files
+                        exit
+                ;;
+                -u|--update-boot)
+                        echo "Updating..."
+                        sleep 1
+                        sync; echo 3 > /proc/sys/vm/drop_caches 
+                        if ! [ -d "$Config_Files" ]; then
+                                mkdir $Config_Files
+                        fi
+                        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+                        sudo bash $Config_Files/Updater.sh -d $Config_Files
+                        exit
+                ;;
+                *)
+                ;;
+  esac
+done
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
 #set colours and 
 Green='\033[0;32m'
 Blue='\033[0;34m'
@@ -13,8 +51,8 @@ NoColour='\033[0m'
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 CurDir=`pwd`
-Config_Files="Elk_Install_Files"
-Config_Files_Default="/etc/Elk_Installer"
+Config_Files="/etc/Elk_Install_Files"
+# Config_Files_Default="/etc/Elk_Installer"
 
 
 
@@ -82,25 +120,25 @@ function select_option {
 }
 
 #Download Dependent Function
-Dir_Select() {
-read -p "Would you like to set your own download folder(Y/N)?" confirm
-if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-        read -p "Please enter the folder path you would like to install to. If It does not exit is will be automatically created:" Config_Files
-        if ! [ -d "$Config_Files" ]; then
-                mkdir $Config_Files
-        fi
-elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
-        Config_Files=$Config_Files_Default
-        mkdir $Config_Files
-else
-        exit
-fi 
-}
+# Dir_Select() {
+# read -p "Would you like to set your own download folder(Y/N)?" confirm
+# if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#         read -p "Please enter the folder path you would like to install to. If It does not exit is will be automatically created:" Config_Files
+#         if ! [ -d "$Config_Files" ]; then
+#                 mkdir $Config_Files
+#         fi
+# elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
+#         Config_Files=$Config_Files_Default
+#         mkdir $Config_Files
+# else
+#         exit
+# fi 
+# }
 
 
 #Install file gather
 Download_Install_And_Config_Files() {
-        Dir_Select
+        # Dir_Select
         if ! [ -d "$Config_Files" ]; then
                 clear
                 echo "Error: Folder Does not exist. Exiting"
@@ -178,19 +216,19 @@ Update() {
         fi
         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
-        sudo bash $Config_Files/Updater.sh
+        sudo bash $Config_Files/Updater.sh -d $Config_Files
         exit
 }
 
-Update_Boot() {
-        sync; echo 3 > /proc/sys/vm/drop_caches 
-        if ! [ -d "$Config_Files" ]; then
-                mkdir $Config_Files
-        fi
-        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-        sudo bash $Config_Files/Updater.sh
-        exit
-}
+# Update_Boot() {
+#         sync; echo 3 > /proc/sys/vm/drop_caches 
+#         if ! [ -d "$Config_Files" ]; then
+#                 mkdir $Config_Files
+#         fi
+#         wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+#         sudo bash $Config_Files/Updater.sh
+#         exit
+# }
 
 #Clean up discarded files
 Clean_Up() {
@@ -224,15 +262,15 @@ Clean_Up() {
 }
 
 # Reload all the files and their dependencies in case of corruption
-Clean_Boot() {
-        rm -r $Config_Files
-        if ! [ -d "$Config_Files" ]; then
-                mkdir $Config_Files
-        fi
-        wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-        sudo bash $Config_Files/Updater.sh
-        exit
-}
+# Clean_Boot() {
+#         rm -r $Config_Files
+#         if ! [ -d "$Config_Files" ]; then
+#                 mkdir $Config_Files
+#         fi
+#         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+#         sudo bash $Config_Files/Updater.sh
+#         exit
+# }
 
 #primary menu function
 Menu() {
@@ -294,31 +332,4 @@ function Exit_Or_Return {
 #                                       Main Arguments And Script
 # -------------------------------------------------------------------------------------------------------------
 
-# Update_Boot # Loop error
-clear
-if [ $(whoami) != 'root' ]; then
-        echo "Must be root to run $0"
-        exit 1;
-fi
-
-POSITIONAL_ARGS=()
-
-while [[ $# -gt 0 ]]; do
-        case $1 in
-                -c|--clean-boot)
-                Clean_Boot
-                echo "CLEAN BOOT(Removing all files...)"
-                sleep 2
-                Menu
-                ;;
-                -u|--update-boot)
-                echo "Updating..."
-                sleep 1
-                Update_Boot
-                ;;
-                *)
-                menu
-                ;;
-  esac
-done
-set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+Menu
