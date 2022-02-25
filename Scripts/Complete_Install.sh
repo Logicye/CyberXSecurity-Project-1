@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.5"
+Version="Version - 0.3.13.6"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -167,7 +167,10 @@ Download_Install_And_Config_Files() {
         wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         printf "${Green}        All Downloads Complete${NoColour}\n\n"
-        sleep 1
+        sleep 2
+        sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
+        sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
+        sed -i "s/$DefaultDir/$Config_Files/g" $Config_Files/Complete_Install.yml
         Menu
 }
 
@@ -232,7 +235,7 @@ Web_Server_Set() {
                 fi
         done
         printf "${Green}        All new webserver IP's Added${NoColour}\n\n"
-        sleep 1
+        sleep 2
         Menu
 
 }
@@ -265,7 +268,7 @@ Elk_Server_Set() {
         sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/filebeat-config.yml
         sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/metricbeat-config.yml
         printf "${Green}        Config files changed for kibana server${NoColour}"
-        sleep 1
+        sleep 2
         Menu
 }
 
