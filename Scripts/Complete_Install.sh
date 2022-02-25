@@ -232,7 +232,6 @@ Update() {
         if ! [ -d "$Config_Files" ]; then
                 mkdir $Config_Files
         fi
-        rm $Config_Files/Updater.sh
         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
         sudo bash $Config_Files/Updater.sh
@@ -243,6 +242,9 @@ Update_Boot() {
         apt install wget
         sync; echo 3 > /proc/sys/vm/drop_caches 
         rm $Config_Files/Update.sh
+        if ! [ -d "$Config_Files" ]; then
+                mkdir $Config_Files
+        fi
         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sudo bash $Config_Files/Updater.sh
         exit

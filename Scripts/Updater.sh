@@ -6,9 +6,7 @@ echo "$Version - Version (Updater)"
 sleep 5
 apt install wget
 sync; echo 3 > /proc/sys/vm/drop_caches 
-rm Complete_Install.sh
 wget -m --no-cache --no-check-certificate -O Complete_Install.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
-rm Updater.sh
 wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
 Complete_Install
 exit
