@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.23"
+Version="Version - 0.3.12.24"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -24,7 +24,6 @@ while [[ $# -gt 0 ]]; do
                         clear
                         VersionCheckSum='Version="'$Version'"'
                         VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
-                        sleep 1
                         if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                                 clear
                                 echo "Updating..."
@@ -32,7 +31,7 @@ while [[ $# -gt 0 ]]; do
                                 if ! [ -d "$Config_Files" ]; then
                                         mkdir $Config_Files
                                 fi
-                                wget --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+                                wget -q --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
                                 chmod u+x /bin/Complete_Install
                                 chmod 777 /bin/Complete_Install
                                 Complete_Install
@@ -160,13 +159,13 @@ Download_Install_And_Config_Files() {
                 sleep 3
                 menu
         fi
-        wget --no-check-certificate --content-disposition -O $Config_Files/Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
+        wget -q --no-check-certificate --content-disposition -O $Config_Files/Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Download Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O $Config_Files/filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
+        wget -q --no-check-certificate --content-disposition -O $Config_Files/filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
         printf "${Green}filebeat-config.yml Download Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
+        wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
         printf "${Green}metricbeat-config.yml Download Complete${NoColour}\n\n"
-        wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
+        wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         if ! [ -f "$Config_Files/WebServerList.txt" ]; then
                 printf "${Red}No WebServerList.txt found${NoColour}"
@@ -187,14 +186,13 @@ Download_Install_And_Config_Files() {
 Web_Server_Set() {
         WebServerExist=$(grep "\[webservers\]" /etc/ansible/hosts)
         if [ "$WebServerExist" == "[webservers]" ];then
-                clear
+                clear 
                 echo "webservers does exit"
                 
         elif [ "$WebServerExist" == "## [webservers]" ];then
                 clear
                 echo "## webservers does exist"
                 sed -i "s/## \[webservers\]/[webservers]/g" /etc/ansible/hosts
-                # awk '/## [webservers]/' /etc/ansible/hosts
         else
                 clear
                 echo "webservers does not exist"
@@ -202,22 +200,16 @@ Web_Server_Set() {
                 echo "[webservers]" >> /etc/ansible/hosts
 
         fi
-        sleep 2
-        Menu
 
-
-
-
-        echo "" >> $WebServerListFileName
-        echo "[webservers]" >> $WebServerListFileName
         read -p "How many webservers would you like to deploy to? " TotalServers
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
+                awk -v newip=$NextIP '/## [webservers]/ { print; print newip; next }1' /etc/ansible/hosts
+                # echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
-        echo "" >> $WebServerListFileName
-        cat $WebServerListFileName >> /etc/ansible/hosts
+        # echo "" >> $WebServerListFileName
+        # cat $WebServerListFileName >> /etc/ansible/hosts
 }
 
 #Set user elk server IP
