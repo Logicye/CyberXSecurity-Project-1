@@ -21,7 +21,7 @@ while [[ $# -gt 0 ]]; do
                 -L|--update-boot)
                         clear
                         $wget -qO $Config_Files/check.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
-                        grep "Version -" $Config_Files/check.txt
+                        $grep "Version -" $Config_Files/check.txt
                         echo "----------------------------"
                         VersionCheck=grep "Version -" $Config_Files/check.txt
                         echo "$VersionCheck"
