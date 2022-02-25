@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.42"
+Version="Version - 0.3.12.43"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -201,7 +201,7 @@ Web_Server_Set() {
         fi
 
         read -p "How many webservers would you like to deploy to? " TotalServers
-        while ! "$TotalServers" =~ ^[0-9]+$ ; do
+        while [[ $((TotalServers)) != $TotalServers ]] ; do
                 echo "Number of servers must be an integer!"
                 read -p "How many webservers would you like to deploy to? " TotalServers
         done
