@@ -28,7 +28,7 @@ while [[ $# -gt 0 ]]; do
                         if ! [ $VersionCheck == "$Version" ]; then
                                 clear
                                 echo "Updating..."
-                                sleep 1
+                                sleep 3
                                 sync; echo 3 > /proc/sys/vm/drop_caches 
                                 if ! [ -d "$Config_Files" ]; then
                                         mkdir $Config_Files
@@ -38,6 +38,7 @@ while [[ $# -gt 0 ]]; do
                                 exit
                         else
                                 echo "Already up to date!"
+                                sleep 2
                         fi
                 ;;
                 -v|--version)
@@ -221,7 +222,7 @@ Update() {
         VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
         if ! [ $VersionCheck == "$Version" ]; then
                 echo "Updating..."
-                Sleep 1
+                Sleep 3
                 sync; echo 3 > /proc/sys/vm/drop_caches 
                 if ! [ -d "$Config_Files" ]; then
                         mkdir $Config_Files
@@ -232,7 +233,7 @@ Update() {
                 exit
         else
                 echo "Already up to date!"
-                Sleep 1
+                Sleep 2
                 Menu
         fi
 }
