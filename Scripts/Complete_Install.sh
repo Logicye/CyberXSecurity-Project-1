@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.17"
+Version="Version - 0.3.12.18"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -190,10 +190,10 @@ Web_Server_Set() {
                 # echo "webservers does not exist"
                 WebServerCommentedExist=$(grep "## \[webservers\]" /etc/ansible/hosts)
                 if ! [ "$WebServerCommentedExist" == "## [webservers]" ];then
-                 echo "## webservers does not exist"
+                        echo "## webservers does not exist"
                 
                 else
-                 echo "## webservers does exit"
+                        echo "## webservers does exit"
                 fi
         else
                 # echo "webservers does exit"
