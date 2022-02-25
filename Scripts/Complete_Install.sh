@@ -13,21 +13,6 @@ NoColour='\033[0m'
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 CurDir=`pwd`
-#-----------------
-# if ! [ -f "$CurDir/WebServerList.txt" ]; then
-# echo "No WebServerList.txt found"
-# echo "" > WebServerList.txt
-# echo "WebServerList.txt created"
-# fi
-# WebServerListFileName="$CurDir/WebServerList.txt"
-# #-----------------
-# if ! [ -f "$CurDir/ElkServerList.txt" ]; then
-# echo "No ElkServerList.txt found"
-# echo "" > ElkServerList.txt
-# echo "ElkServerList.txt created"
-# fi
-# ElkServerListFileName="$CurDir/ElkServerList.txt"
-#-----------------
 Config_Files="Elk_Install_Files"
 Config_Files_Default="/etc/Elk_Installer"
 
@@ -109,19 +94,7 @@ elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
         mkdir $Config_Files
 else
         exit
-fi
-# if ! [ -d "$CurDir/$Config_Files" ]; then
-#         mkdir $Config_Files
-#         read -p "Folder $Config_Files does not exist. Would you like you make a new one? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 mkdir $Config_Files
-#         elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
-#                 Config_Files=$Config_Files_Default
-#                 mkdir $Config_Files
-#         else
-#                 Dir_Select
-#         fi
-# fi  
+fi 
 }
 
 
@@ -176,7 +149,6 @@ Elk_Server_Set() {
         clear
         echo "Please enter the IP address of your Kibana server: "
         read NewIP
-        # sed -i "s/$DefaultIP/$NewIP/g" /etc/ansible/hosts.txt
         echo "[elk]" > $ElkServerListFileName
         echo "$NewIP" > "$ElkServerListFileName ansible_python_interpreter=/usr/bin/python3"
         cat $ElkServerListFileName >> /etc/ansible/hosts
@@ -192,7 +164,6 @@ Config_Modify() {
 
 #Runs install process once all variables have been given
 Install() {
-        # Ansible_File="$CurDir/$Config_Files/Complete_Install.yml"
         ansible-playbook "$Config_Files/Complete_Install.yml"
         printf "${Green} Install Complete!${NoColour}"
         Exit_Or_Return
@@ -219,11 +190,6 @@ Update_Boot() {
         wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sudo bash $Config_Files/Updater.sh
         exit
-        # rm Complete_Install.sh
-        # wget -m --no-cache --no-check-certificate -O Complete_Install.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
-        # rm Updater.sh
-        # wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-        # clear
 }
 
 #Clean up discarded files
@@ -356,59 +322,3 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
-
-
-
-
-
-# Confirm test
-# # read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] --------------------------------------------------
-# echo 'Enter IP address of Kibana server: '
-# echo -n '   -:'
-# read ReplaceIP
-# echo 'Wousld you like to add the Kibana Server to an [elk] list in ansible hosts. (/etc/ansible/hosts)'
-# echo -n '   -:'
-# read AddElk
-# echo -n '   -:'
-# select yn in "Yes" "No"; do
-#     case $yn in
-#         Yes ) if cat /etc/ansible/hosts.txt | grep -q "elk"; then
-                        
-#                 fi; break;;
-#         No ) exit;;
-#     esac
-# done
-# read REPLY
-# if [$REPLY -e "y"]
-# then
-#         #modify ansible hosts files to add elk header and ip addresses
-#         if ! grep -q "[elk]" "/etc/ansible/hosts"; then
-#                 echo "[elk]" | tee $HostsFile
-#         fi
-# else 
-#                 break
-# fi
-
-
-# echo -n '   -:'
-# read
-
-# echo 'Would you like to generate a [Webserver] list in ansible hosts (/etc/ansible/hosts)'
-# echo 'Enter IP Addresses of Web Servers'
-
-
-
-
-# mkdir ELK_Stack_Install
-# cd ELK_Stack_Install
-# wget --no-check-certificate --content-disposition -O Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
-# printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
-# wget --no-check-certificate --content-disposition -O filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
-# printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
-# wget --no-check-certificate --content-disposition -O metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
-# printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
-# wget --no-check-certificate --content-disposition -O metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
-# printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
-#Replace
-#sed -n -i "s/10.1.0.4/$ReplaceIP/g" filebeat-config.yml
-#sed -n -i "s/10.1.0.4/$ReplaceIP/g" metricbeat-config.yml
