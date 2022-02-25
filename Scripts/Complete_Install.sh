@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.27"
+Version="Version - 0.3.12.28"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -206,7 +206,7 @@ Web_Server_Set() {
         do
                 read -p "Enter server number $i's IP:" NextIP
                 awk -v newip=$NextIP '/\[webservers\]/ { print; print newip; next }1' /etc/ansible/hosts
-                sed -i "s/\[webservers\]/a $NextIP/g" /etc/ansible/hosts
+                sed "s/\[webservers\]/a $NextIP/g" /etc/ansible/hosts
                 # echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
         # echo "" >> $WebServerListFileName
