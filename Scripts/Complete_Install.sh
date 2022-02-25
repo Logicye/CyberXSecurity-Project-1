@@ -330,6 +330,11 @@ function Exit_Or_Return {
 
 # Update_Boot # Loop error
 clear
+if [ $(whoami) != 'root' ]; then
+        echo "Must be root to run $0"
+        exit 1;
+fi
+
 POSITIONAL_ARGS=()
 
 while [[ $# -gt 0 ]]; do
@@ -351,11 +356,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
-
-if [ $(whoami) != 'root' ]; then
-        echo "Must be root to run $0"
-        exit 1;
-fi
 
 
 
