@@ -220,6 +220,7 @@ Install() {
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
         VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
+        echo "$VersionCheck"
         if ! [ $VersionCheck == "$Version" ]; then
                 echo "Updating..."
                 Sleep 3
