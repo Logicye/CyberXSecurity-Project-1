@@ -49,6 +49,7 @@ while [[ $# -gt 0 ]]; do
                         else
                                 echo "Already up to date!"
                                 sleep 2
+                                Menu
                         fi
                 ;;
                 -v|--version)
