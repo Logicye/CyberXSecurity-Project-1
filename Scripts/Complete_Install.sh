@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.4.1"
+Version="Version - 0.4.1.1"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -132,26 +132,8 @@ function select_option {
     return $selected
 }
 
-#Download Dependent Function
-# Dir_Select() {
-# read -p "Would you like to set your own download folder(Y/N)?" confirm
-# if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#         read -p "Please enter the folder path you would like to install to. If It does not exit is will be automatically created:" Config_Files
-#         if ! [ -d "$Config_Files" ]; then
-#                 mkdir $Config_Files
-#         fi
-# elif [[ $confirm == [nN] || $confirm == [nN][oO] ]];then
-#         Config_Files=$Config_Files_Default
-#         mkdir $Config_Files
-# else
-#         exit
-# fi 
-# }
-
-
 #Install file gather
 Download_Install_And_Config_Files() {
-        # Dir_Select
         clear
         if ! [ -d "$Config_Files" ]; then
                 clear
@@ -305,36 +287,6 @@ Update() {
         fi
 }
 
-#Clean up discarded files
-# Clean_Up() {
-#         read -p "Would you like to delete the web server list file? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 rm $WebServerListFileName
-#                 echo "Web Server List File Removed"
-#         fi
-#         read -p "Would you like to delete elk server list file? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 rm $ElkServerListFileName
-#                 echo "Elk Server List File Removed"
-#         fi
-#         read -p "Would you like to delete the Complete installer playbook? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 rm $Config_Files/Complete_Install.yml
-#                 echo "Playbook Removed"
-#         fi
-#         read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 rm /bin/Complete_Install
-#                 echo "Installer Removed"
-#         fi
-#                 read -p "Would you like to delete the config file folder? (Y/N): " confirm  
-#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-#                 rm -r $Config_Files
-#                 echo "Config Files Removed"
-#         fi
-#         Exit_Or_Return
-# }
-
 
 #primary menu function
 Menu() {
@@ -360,9 +312,6 @@ Menu() {
                 3)
                 Install
                 ;;
-                # 5)
-                # Clean_Up
-                # ;;
                 4)
                 Update
                 ;;

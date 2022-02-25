@@ -1,4 +1,5 @@
 ---
+#New ELK Stack Server Install
 - name: Config ELK VM with Docker for ELK Stack
   hosts: elk
   become: true
@@ -60,7 +61,7 @@
     #     published_ports: 80:80
     #     # worked
 
-
+# New Section Below For Webservers
 - name: Complete Install ELK Stack
   hosts: webservers
   become: true
