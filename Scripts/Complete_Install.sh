@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.4.2"
+Version="Version - 0.4.3"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -19,6 +19,7 @@ while [[ $# -gt 0 ]]; do
                         if ! [ -d "$Config_Files" ]; then
                                 mkdir $Config_Files
                         fi
+                        Menu
                 ;;
                 -r|--remove)
                         clear
