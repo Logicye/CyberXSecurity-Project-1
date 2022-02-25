@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.7"
+Version="Version - 0.3.12.8"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -188,7 +188,7 @@ Web_Server_Set() {
         webserverstate=$(cat /etc/ansible/hosts | grep '[webservers]')
         echo $webserverstate
         sleep 2
-        if ! [ $(cat /etc/ansible/hosts | grep 'webservers') == "[webservers]" ];then
+        if ! [ $(cat /etc/ansible/hosts | grep '[webservers]') == "[webservers]" ];then
                 echo "webservers does not exist"
         else
                 echo "webservers does exit"
