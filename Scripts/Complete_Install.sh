@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.48"
+Version="Version - 0.3.12.49"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -194,7 +194,9 @@ is_ip() {
                 done
                 return 0
         else
-        return 1
+                clear
+                echo "IP address entered is not a valid IP address!"
+                return 1
         fi
 }
 
