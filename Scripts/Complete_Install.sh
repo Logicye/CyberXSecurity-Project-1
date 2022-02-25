@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="Version - 0.3.9"
+Version="Version - 0.3.10"
 
 #inintialise
 # set -e
@@ -24,7 +24,10 @@ while [[ $# -gt 0 ]]; do
                         fi
                 ;;
                 -u|--update-boot)
-                        VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
+                        VersionCheck= 'wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "'
+                        clear
+                        echo "$VersionCheck"
+                        sleep 2
                         if ! [ $VersionCheck == "$Version" ]; then
                                 clear
                                 echo "Updating..."
@@ -219,7 +222,7 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-        VersionCheck= $(wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - ")
+        VersionCheck= "`wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - "`"
         clear
         echo "$VersionCheck"
         sleep 2

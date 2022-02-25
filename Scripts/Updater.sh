@@ -1,7 +1,7 @@
 #!/bin/bash
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh --output Complete_Install.sh
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-Version="Version(Updater) - 0.3.9"
+Version="Version(Updater) - 0.3.10"
 echo "$Version"
 sleep 1
 
