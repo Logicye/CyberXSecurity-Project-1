@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.4.1.1"
+Version="Version - 0.4.1.2"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -259,7 +259,7 @@ Elk_Server_Set() {
 #Runs install process once all variables have been given
 Install() {
         ansible-playbook "$Config_Files/Complete_Install.yml"
-        printf "${Green}        Install Complete!${NoColour}"
+        printf "${Green}        Install Complete!\n\n${NoColour}"
         Exit_Or_Return
 }
 
