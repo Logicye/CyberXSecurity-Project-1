@@ -10,7 +10,7 @@ POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
         -d|--directory)
-            CurDir="$2"
+            CurDir= "$2"
         ;;
         *)
         ;;
