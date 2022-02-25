@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.38"
+Version="Version - 0.3.12.39"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -205,7 +205,7 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                while [ $((NextIP)) != $NextIP ] ; do
+                while "$NextIP" =~ ^[0-9]+$ ; do
                         echo "Number of servers must be an integer!"
                         read -p "Enter server number $i's IP:" NextIP
                 done
