@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.2"
+Version="Version - 0.3.12.3"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -60,6 +60,7 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 #set colours and 
 Green='\033[0;32m'
 Blue='\033[0;34m'
+Red='\033[0;31m'
 NoColour='\033[0m'
 
 #Set known variables
@@ -160,30 +161,41 @@ Download_Install_And_Config_Files() {
                 menu
         fi
         wget --no-check-certificate --content-disposition -O $Config_Files/Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
-        printf "${Green}Complete_Install.yml Complete${NoColour}\n\n"
+        printf "${Green}Complete_Install.yml Download Complete${NoColour}\n\n"
         wget --no-check-certificate --content-disposition -O $Config_Files/filebeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/FileBeat/filebeat-config.yml
-        printf "${Green}filebeat-config.yml Complete${NoColour}\n\n"
+        printf "${Green}filebeat-config.yml Download Complete${NoColour}\n\n"
         wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-config.yml
-        printf "${Green}metricbeat-config.yml Complete${NoColour}\n\n"
+        printf "${Green}metricbeat-config.yml Download Complete${NoColour}\n\n"
         wget --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
-        printf "${Green}metricbeat-docker-config.yml Complete${NoColour}\n\n"
+        printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         if ! [ -f "$Config_Files/WebServerList.txt" ]; then
-                echo "No WebServerList.txt found"
+                printf "${Red}No WebServerList.txt found${NoColour}"
                 echo "" > $Config_Files/WebServerList.txt
-                echo "WebServerList.txt created"
+                printf "${Green}WebServerList.txt created${NoColour}"
         fi
         WebServerListFileName="$Config_Files/WebServerList.txt"
         #-----------------
         if ! [ -f "$Config_Files/ElkServerList.txt" ]; then
-                echo "No ElkServerList.txt found"
+                printf "${Red}No ElkServerList.txt found${NoColour}"
                 echo "" > $Config_Files/ElkServerList.txt
-                echo "ElkServerList.txt created"
+                printf "${Green}ElkServerList.txt created${NoColour}"
         fi
         ElkServerListFileName="$Config_Files/ElkServerList.txt"
 }
 
 #Set user web servers IP's
 Web_Server_Set() {
+        if [ $(cat /etc/ansible/hosts | grep 'webservers') == "#webservers" ];then
+                echo "webservers does not exist"
+        else
+                echo "webservers does exit"
+        fi
+        exit
+
+
+
+
+        echo "" >> $WebServerListFileName
         echo "[webservers]" >> $WebServerListFileName
         read -p "How many webservers would you like to deploy to? " TotalServers
         for i in $(seq 1 "$TotalServers")
@@ -191,6 +203,7 @@ Web_Server_Set() {
                 read -p "Enter server number $i's IP:" NextIP
                 echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
+        echo "" >> $WebServerListFileName
         cat $WebServerListFileName >> /etc/ansible/hosts
 }
 
@@ -199,6 +212,9 @@ Elk_Server_Set() {
         clear
         echo "Please enter the IP address of your Kibana server: "
         read NewIP
+        echo "" >> $ElkServerListFileName
+        echo "[elk]" >> $ElkServerListFileName
+
         echo "[elk]" > $ElkServerListFileName
         echo "$NewIP" > "$ElkServerListFileName ansible_python_interpreter=/usr/bin/python3"
         cat $ElkServerListFileName >> /etc/ansible/hosts
