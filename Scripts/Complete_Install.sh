@@ -1,18 +1,12 @@
-#!/bin/bash
-
-Version="Version - 0.3.11.9"
-
-#inintialise
-# set -e
-
+Version="Version - 0.3.11.10"
 clear
+
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
         exit 1;
 fi
 
 POSITIONAL_ARGS=()
-
 while [[ $# -gt 0 ]]; do
         case $1 in
                 -c|--clean-boot)
@@ -26,7 +20,7 @@ while [[ $# -gt 0 ]]; do
                 ;;
                 -L|--update-boot)
                         clear
-                        wget -qO $Config_Files/check.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+                        $wget -qO $Config_Files/check.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
                         grep "Version -" $Config_Files/check.txt
                         echo "----------------------------"
                         VersionCheck=grep "Version -" $Config_Files/check.txt
