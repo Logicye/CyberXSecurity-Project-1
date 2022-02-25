@@ -22,7 +22,7 @@ while [[ $# -gt 0 ]]; do
                                 mkdir $Config_Files
                         fi
                         wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-                        sudo bash $Config_Files/Updater.sh -d $Config_Files
+                        sudo bash $Config_Files/Updater.sh $Config_Files
                         exit
                 ;;
                 -u|--update-boot)
@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
                                 mkdir $Config_Files
                         fi
                         wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-                        sudo bash $Config_Files/Updater.sh -d $Config_Files
+                        sudo bash $Config_Files/Updater.sh $Config_Files
                         exit
                 ;;
                 *)
@@ -216,7 +216,7 @@ Update() {
         fi
         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sleep 2
-        sudo bash $Config_Files/Updater.sh -d $Config_Files
+        sudo bash $Config_Files/Updater.sh $Config_Files
         exit
 }
 
