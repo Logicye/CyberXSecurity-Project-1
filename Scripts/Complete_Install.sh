@@ -167,6 +167,7 @@ Download_Install_And_Config_Files() {
         wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         printf "${Green}        All Downloads Complete${NoColour}\n\n"
+        sleep 1
         Menu
 }
 
