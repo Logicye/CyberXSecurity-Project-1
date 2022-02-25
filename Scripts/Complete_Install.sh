@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
                         fi
                 ;;
                 -u|--update-boot)
-                        VersionCheck="`wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version - "`"
+                        VersionCheck=`wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version - "`
                         clear
                         echo "$VersionCheck"
                         sleep 2
