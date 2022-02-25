@@ -24,7 +24,8 @@ while [[ $# -gt 0 ]]; do
                         fi
                 ;;
                 -u|--update-boot)
-                        if ! [ wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - " -eq $Version ]; then
+                        VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
+                        if ! [ $VersionCheck == "$Version" ]; then
                                 clear
                                 echo "Updating..."
                                 sleep 1
@@ -217,7 +218,8 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-        if ! [ wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - " !eq "$Version" ]; then
+        VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - "
+        if ! [ $VersionCheck == "$Version" ]; then
                 sync; echo 3 > /proc/sys/vm/drop_caches 
                 if ! [ -d "$Config_Files" ]; then
                         mkdir $Config_Files
