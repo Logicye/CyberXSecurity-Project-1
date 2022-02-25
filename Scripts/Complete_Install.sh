@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.49"
+Version="Version - 0.3.13.1"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -166,19 +166,6 @@ Download_Install_And_Config_Files() {
         printf "${Green}metricbeat-config.yml Download Complete${NoColour}\n\n"
         wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
-        if ! [ -f "$Config_Files/WebServerList.txt" ]; then
-                printf "${Red}No WebServerList.txt found${NoColour}"
-                echo "" > $Config_Files/WebServerList.txt
-                printf "${Green}WebServerList.txt created${NoColour}"
-        fi
-        WebServerListFileName="$Config_Files/WebServerList.txt"
-        #-----------------
-        if ! [ -f "$Config_Files/ElkServerList.txt" ]; then
-                printf "${Red}No ElkServerList.txt found${NoColour}"
-                echo "" > $Config_Files/ElkServerList.txt
-                printf "${Green}ElkServerList.txt created${NoColour}"
-        fi
-        ElkServerListFileName="$Config_Files/ElkServerList.txt"
 }
 
 # Checks validity of ip
@@ -233,17 +220,7 @@ Web_Server_Set() {
                         read -p "Enter server number $i's IP:" NextIP
                         is_ip $NextIP
                 done
-                # if expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
-                #         for d in 1 2 3 4; do
-                #                 if [ $(echo "$NextIP" | cut -d. -f$d) -gt 255 ]; then
-                #                         echo "fail ($NextIP)"
-                #                         exit 1
-                #                 fi
-                #         done
-                # else
-                #         echo "fail ($ip)"
-                #         exit 1
-                # fi
+
                 IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
                 if [ "$IPExistCheck" == "$NextIP" ];then
                         echo "$NextIP Already in hosts file"
@@ -251,34 +228,40 @@ Web_Server_Set() {
                         sed -i "/\[webservers\]/a $NextIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts
                 fi
                 sleep 1
-                # sed -i "/\[webservers\]/a $NextIP" /etc/ansible/hosts
-                # awk -v newip=$NextIP '/\[webservers\]/ { print; print newip; next }1' /etc/ansible/hosts > /etc/ansible/hosts
-                # sed -i "\[webservers\]/a $NextIP" /etc/ansible/hosts
-                # echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
         Menu
-        # echo "" >> $WebServerListFileName
-        # cat $WebServerListFileName >> /etc/ansible/hosts
+
 }
 
 #Set user elk server IP
 Elk_Server_Set() {
-        clear
-        echo "Please enter the IP address of your Kibana server: "
-        read NewIP
-        echo "" >> $ElkServerListFileName
-        echo "[elk]" >> $ElkServerListFileName
+        ElkExist=$(grep "\[elk\]" /etc/ansible/hosts)
+        if [ "$ElkExist" == "[elk]" ];then
+                clear 
+                echo "elk does exit"
+        else
+                clear
+                echo "elk does not exist"
+                echo "" >> /etc/ansible/hosts
+                echo "[elk]" >> /etc/ansible/hosts
 
-        echo "[elk]" > $ElkServerListFileName
-        echo "$NewIP" > "$ElkServerListFileName ansible_python_interpreter=/usr/bin/python3"
-        cat $ElkServerListFileName >> /etc/ansible/hosts
-}
-
-#Modify config files
-Config_Modify() {
-        sed -i "s/$DefaultIP/$NewIP/g" $Config_Files/filebeat-config.yml
-        sed -i "s/$DefaultIP/$NewIP/g" $Config_Files/metricbeat-config.yml
-        echo "${Green}Config Complete!${NoColour}"
+        fi
+        read -p "Please enter the IP address of your Kibana server: " ElkIP
+        is_ip $ElkIP
+        while ! [[ $? -eq 0 ]]; do
+                read -p "Please enter the IP address of your Kibana server: " ElkIP
+                is_ip $ElkIP
+        done
+        IPExistCheck=$(grep -m 1 "$ElkIP" /etc/ansible/hosts)
+        if [ "$IPExistCheck" == "$ElkIP" ];then
+                echo "$ElkIP Already in hosts file"
+        else
+                sed -i "/\[elk\]/a $ElkIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts
+        fi
+        sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/filebeat-config.yml
+        sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/metricbeat-config.yml
+        printf "${Green}Config files changed for kibana server${NoColour}"
+        sleep 1
 }
 
 #Runs install process once all variables have been given
@@ -351,7 +334,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n${NoColour}"
       echo "($Version)"
       echo
-      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Update" "Quit")
+      options=("Download Config Files" "Add Webservers" "Change Kibana Server IP" "Install" "Update" "Quit")
       select_option "${options[@]}"
       choice=$?
 
@@ -365,18 +348,15 @@ Menu() {
                 Elk_Server_Set
                 ;;
                 3)
-                Config_Modify
-                ;;
-                4)
                 Install
                 ;;
                 # 5)
                 # Clean_Up
                 # ;;
-                5)
+                4)
                 Update
                 ;;
-                6)
+                5)
                 clear
                 exit
                 ;;
