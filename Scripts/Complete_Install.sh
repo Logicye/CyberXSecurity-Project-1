@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="Version - 0.3.11.2"
+Version="Version - 0.3.11.3"
 
 #inintialise
 # set -e
@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
                         fi
                 ;;
                 -u|--update-boot)
-                        VersionCheck= `wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version - "`
+                        VersionCheck="`wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version - "`"
                         clear
                         echo "$VersionCheck"
                         sleep 2
@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
                                 if ! [ -d "$Config_Files" ]; then
                                         mkdir $Config_Files
                                 fi
-                                wget -m --no-cache --no-check-certificate -O /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+                                wget --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
                                 chmod u+x /bin/Complete_Install
                                 chmod 777 /bin/Complete_Install
                                 Complete_Install
@@ -249,7 +249,7 @@ Update() {
         if ! [ -d "$Config_Files" ]; then
                 mkdir $Config_Files
         fi
-        wget -m --no-cache --no-check-certificate -O /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+        wget --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
         chmod u+x /bin/Complete_Install
         chmod 777 /bin/Complete_Install
         Complete_Install
