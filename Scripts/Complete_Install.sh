@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.46"
+Version="Version - 0.3.12.47"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -181,6 +181,22 @@ Download_Install_And_Config_Files() {
         ElkServerListFileName="$Config_Files/ElkServerList.txt"
 }
 
+# Checks validity of ip
+is_ip() {
+        local ip=$1
+        if expr "$ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
+                for d in 1 2 3 4; do
+                        if [ $(echo "$ip" | cut -d. -f$d) -gt 255 ]; then
+                                return 1
+                        fi
+                done
+                return 0
+        else
+        return 1
+        fi
+}
+
+
 #Set user web servers IP's
 Web_Server_Set() {
         WebServerExist=$(grep "\[webservers\]" /etc/ansible/hosts)
@@ -208,15 +224,10 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                while expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; do
-                        for d in 1 2 3 4; do
-                                if [ $(echo "$NextIP" | cut -d. -f$d) -gt 255 ]; then
-                                        echo "not ($NextIP)"
-                                        return
-                                fi
-                                return
-                        done
+                is_ip $NextIP
+                while ! [[ $? -eq 0 ]]; do
                         read -p "Enter server number $i's IP:" NextIP
+                        is_ip $NextIP
                 done
                 # if expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
                 #         for d in 1 2 3 4; do
