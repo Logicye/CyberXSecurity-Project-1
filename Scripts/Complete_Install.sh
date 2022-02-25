@@ -36,7 +36,9 @@ while [[ $# -gt 0 ]]; do
                         exit
                 ;;
                 -v|--version)
+                        clear
                         echo "$Version"
+                        exit
                 ;;
                 *)
                 ;;
