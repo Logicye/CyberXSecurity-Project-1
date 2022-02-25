@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.14.1"
+Version="Version - 0.4.1"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -152,6 +152,7 @@ function select_option {
 #Install file gather
 Download_Install_And_Config_Files() {
         # Dir_Select
+        clear
         if ! [ -d "$Config_Files" ]; then
                 clear
                 echo "Error: Folder Does not exist. Exiting"
@@ -168,8 +169,8 @@ Download_Install_And_Config_Files() {
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
         printf "${Green}        All Downloads Complete${NoColour}\n\n"
         sleep 2
-        sed -i "s/\/root\/CyberXSecurity-Project-1\/Scripts\/FileBeat\//\/etc\/Elk_Install_Files/g" $Config_Files/Complete_Install.yml
-        sed -i "s/\/root\/CyberXSecurity-Project-1\/Scripts\/MetricBeat\//\/etc\/Elk_Install_Files/g" $Config_Files/Complete_Install.yml
+        sed -i "s/\/root\/CyberXSecurity-Project-1\/Scripts\/FileBeat\//\/etc\/Elk_Install_Files\//g" $Config_Files/Complete_Install.yml
+        sed -i "s/\/root\/CyberXSecurity-Project-1\/Scripts\/MetricBeat\//\/etc\/Elk_Install_Files\//g" $Config_Files/Complete_Install.yml
         printf "${Green}       Complete_Install.yml Configured${NoColour}\n\n"
         sleep 2
         Menu
