@@ -205,7 +205,7 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                IPExistCheck=$(grep -m 1"$NextIP" /etc/ansible/hosts)
+                IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
                 echo "$IPExistCheck"
                 sleep 1
                 if [ "$IPExistCheck" == "$NextIP" ];then
