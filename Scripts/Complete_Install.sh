@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.45"
+Version="Version - 0.3.12.46"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -208,7 +208,7 @@ Web_Server_Set() {
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                while ! expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; do
+                while expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; do
                         for d in 1 2 3 4; do
                                 if [ $(echo "$NextIP" | cut -d. -f$d) -gt 255 ]; then
                                         echo "not ($NextIP)"
