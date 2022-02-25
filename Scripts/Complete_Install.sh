@@ -1,5 +1,5 @@
 #! /bin/bash
-Version="Version - 0.3.11.17"
+Version="Version - 0.3.11.18"
 VersionCheckSum='Version="'$Version'"'
 echo "$VersionCheckSum"
 sleep 2
