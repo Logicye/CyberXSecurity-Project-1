@@ -1,8 +1,8 @@
 #! /bin/bash
-Version="Version - 0.3.11.18"
-VersionCheckSum='Version="'$Version'"'
-echo "$VersionCheckSum"
-sleep 2
+Version="Version - 0.3.11.19"
+# VersionCheckSum='Version="'$Version'"'
+# echo "$VersionCheckSum"
+# sleep 2
 clear
 Config_Files="/etc/Elk_Install_Files"
 
@@ -11,7 +11,7 @@ if [ $(whoami) != 'root' ]; then
         exit 1;
 fi
 
-VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
+# VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
 # VersionCheck= `grep -m 1 "Version - " $Config_Files/version.txt`
 # rm $Config_Files/version.txt
 
@@ -29,7 +29,10 @@ while [[ $# -gt 0 ]]; do
                 ;;
                 -u|--update-boot)
                         clear
+                        VersionCheckSum='Version="'$Version'"'
+                        VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
                         echo "$VersionCheck"
+                        echo "$VersionCheckSum"
                         sleep 1
                         if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                                 clear
