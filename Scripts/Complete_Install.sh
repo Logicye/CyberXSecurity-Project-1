@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.4.3"
+Version="Version - 0.4.4"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -147,10 +147,7 @@ function select_option {
 Download_Install_And_Config_Files() {
         clear
         if ! [ -d "$Config_Files" ]; then
-                clear
-                echo "Error: Folder Does not exist. Exiting"
-                sleep 3
-                menu
+                mkdir $Config_Files
         fi
         wget -q --no-check-certificate --content-disposition -O $Config_Files/Complete_Install.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.yml
         printf "${Green}Complete_Install.yml Download Complete${NoColour}\n\n"
