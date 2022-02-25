@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
                         fi
                 ;;
                 -u|--update-boot)
-                        if ! [[ wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - " == $Version ]]; then
+                        if ! [[ wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version - " -eq $Version ]]; then
                                 clear
                                 echo "Updating..."
                                 sleep 1
