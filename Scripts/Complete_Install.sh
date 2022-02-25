@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
                                 mkdir $Config_Files
                         fi
                 ;;
-                -u|--update-boot)
+                -L|--update-boot)
                         clear
                         wget -qO $Config_Files/check.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
                         grep "Version -" $Config_Files/check.txt
