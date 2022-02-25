@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.44"
+Version="Version - 0.3.12.45"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -207,23 +207,35 @@ Web_Server_Set() {
         done
         for i in $(seq 1 "$TotalServers")
         do
-                # read -p "Enter server number $i's IP:" NextIP
-                # IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
-                # if [ "$IPExistCheck" == "$NextIP" ];then
-                #         echo "$NextIP Already in hosts file"
+                read -p "Enter server number $i's IP:" NextIP
+                while ! expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; do
+                        for d in 1 2 3 4; do
+                                if [ $(echo "$NextIP" | cut -d. -f$d) -gt 255 ]; then
+                                        echo "not ($NextIP)"
+                                        return
+                                fi
+                                return
+                        done
+                        read -p "Enter server number $i's IP:" NextIP
+                done
+                # if expr "$NextIP" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
+                #         for d in 1 2 3 4; do
+                #                 if [ $(echo "$NextIP" | cut -d. -f$d) -gt 255 ]; then
+                #                         echo "fail ($NextIP)"
+                #                         exit 1
+                #                 fi
+                #         done
                 # else
-                #         sed -i "/\[webservers\]/a $NextIP" /etc/ansible/hosts
+                #         echo "fail ($ip)"
+                #         exit 1
                 # fi
-                # sleep 1
-
-                # IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
-                if [ $(grep -m 1 "$NextIP" /etc/ansible/hosts) == "$NextIP" ];then
+                IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
+                if [ "$IPExistCheck" == "$NextIP" ];then
                         echo "$NextIP Already in hosts file"
                 else
-                        sed -i "/\[webservers\]/a $NextIP" /etc/ansible/hosts
+                        sed -i "/\[webservers\]/a $NextIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts
                 fi
                 sleep 1
-
                 # sed -i "/\[webservers\]/a $NextIP" /etc/ansible/hosts
                 # awk -v newip=$NextIP '/\[webservers\]/ { print; print newip; next }1' /etc/ansible/hosts > /etc/ansible/hosts
                 # sed -i "\[webservers\]/a $NextIP" /etc/ansible/hosts
