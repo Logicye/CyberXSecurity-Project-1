@@ -1,19 +1,12 @@
 #! /bin/bash
-Version="Version - 0.3.12.1"
-# VersionCheckSum='Version="'$Version'"'
-# echo "$VersionCheckSum"
-# sleep 2
 clear
+Version="Version - 0.3.12.2"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
         exit 1;
 fi
-
-# VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
-# VersionCheck= `grep -m 1 "Version - " $Config_Files/version.txt`
-# rm $Config_Files/version.txt
 
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
@@ -31,13 +24,11 @@ while [[ $# -gt 0 ]]; do
                         clear
                         VersionCheckSum='Version="'$Version'"'
                         VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
-                        echo "$VersionCheck"
-                        echo "$VersionCheckSum"
                         sleep 1
                         if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
                                 clear
                                 echo "Updating..."
-                                sleep 2 
+                                sleep 1
                                 if ! [ -d "$Config_Files" ]; then
                                         mkdir $Config_Files
                                 fi
@@ -48,7 +39,7 @@ while [[ $# -gt 0 ]]; do
                                 exit
                         else
                                 echo "Already up to date!"
-                                sleep 2
+                                sleep 1
                                 Complete_Install
                                 exit
                         fi
@@ -229,38 +220,28 @@ Install() {
 
 #Self Updater
 Update() {
-        # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-        # VersionCheck= "`wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - "`"
-        # clear
-        # echo "$VersionCheck"
-        # sleep 2
-        # if ! [ $VersionCheck == "$Version" ]; then
-        #         echo "Updating..."
-        #         Sleep 3
-        #         sync; echo 3 > /proc/sys/vm/drop_caches 
-        #         if ! [ -d "$Config_Files" ]; then
-        #                 mkdir $Config_Files
-        #         fi
-        #         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-        #         sleep 2
-        #         sudo bash $Config_Files/Updater.sh $Config_Files
-        #         exit
-        # else
-        #         echo "Already up to date!"
-        #         Sleep 2
-        #         Menu
-        # fi
         clear
-        echo "Updating..."
-        sleep 2 
-        if ! [ -d "$Config_Files" ]; then
-                mkdir $Config_Files
+        VersionCheckSum='Version="'$Version'"'
+        VersionCheck=$(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
+        sleep 1
+        if ! [ "$VersionCheck" == "$VersionCheckSum" ]; then
+                clear
+                echo "Updating..."
+                sleep 1 
+                if ! [ -d "$Config_Files" ]; then
+                        mkdir $Config_Files
+                fi
+                wget --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+                chmod u+x /bin/Complete_Install
+                chmod 777 /bin/Complete_Install
+                Complete_Install
+                exit
+        else
+                echo "Already up to date!"
+                sleep 1
+                Complete_Install
+                exit
         fi
-        wget --no-check-certificate -qO /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
-        chmod u+x /bin/Complete_Install
-        chmod 777 /bin/Complete_Install
-        Complete_Install
-        exit
 }
 
 #Clean up discarded files
