@@ -219,7 +219,7 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-        VersionCheck= wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - "
+        VersionCheck= $(wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - ")
         clear
         echo "$VersionCheck"
         sleep 2
