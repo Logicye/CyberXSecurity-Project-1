@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="Version - 0.3.11.6"
+Version="Version - 0.3.11.7"
 
 #inintialise
 # set -e
@@ -25,7 +25,7 @@ while [[ $# -gt 0 ]]; do
                 ;;
                 -u|--update-boot)
                         clear
-                        VersionCheck=wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version -"
+                        # VersionCheck=wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep "Version -"
                         wget -qO $Config_Files/check.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
                         grep "Version -" $Config_Files/check.txt
                         echo "----------------------------"
