@@ -1,7 +1,7 @@
 #!/bin/bash
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh --output Complete_Install.sh
 # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-Version="0.3.0"
+Version="0.3.1"
 echo "$Version - Version (Updater)"
 sleep 5
 sync; echo 3 > /proc/sys/vm/drop_caches 
