@@ -1,5 +1,8 @@
 #! /bin/bash
 Version="Version - 0.3.11.14"
+VersionCheckSum='Version="'$Version'"'
+echo "$VersionCheckSum"
+sleep 2
 clear
 Config_Files="/etc/Elk_Install_Files"
 
@@ -8,8 +11,8 @@ if [ $(whoami) != 'root' ]; then
         exit 1;
 fi
 
-VersionCheckWget= $(wget -qO $Config_Files/version.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh)
-VersionCheck= `grep -m 1 "Version - " $Config_Files/version.txt`
+VersionCheck= $(wget -qO - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh | grep -m 1 "Version - ")
+# VersionCheck= `grep -m 1 "Version - " $Config_Files/version.txt`
 # rm $Config_Files/version.txt
 
 POSITIONAL_ARGS=()
