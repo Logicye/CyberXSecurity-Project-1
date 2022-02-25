@@ -1,11 +1,16 @@
 #! /bin/bash
-Version="Version - 0.3.11.12"
+Version="Version - 0.3.11.13"
 clear
+Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
         echo "Must be root to run $0"
         exit 1;
 fi
+
+VersionCheckWget= $(wget -qO $Config_Files/version.txt http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh)
+VersionCheck= $(grep -m 1 "Version - " $Config_Files/version.txt)
+rm $Config_Files/version.txt
 
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
@@ -19,9 +24,8 @@ while [[ $# -gt 0 ]]; do
                                 mkdir $Config_Files
                         fi
                 ;;
-                -L|--update-boot)
+                -u|--update-boot)
                         clear
-                        VersionCheck=grep "Version -" $Config_Files/check.txt
                         echo "$VersionCheck"
                         sleep 1
                         if ! [ $VersionCheck == "$Version" ]; then
@@ -63,7 +67,6 @@ NoColour='\033[0m'
 DefaultIP="10.1.0.4"
 DefaultDir='/root/CyberXSecurity-Project-1/Scripts/'  # Remember to add file directory for each change in seperate files ie (metricbeat/met...)
 CurDir=`pwd`
-Config_Files="/etc/Elk_Install_Files"
 # Config_Files_Default="/etc/Elk_Installer"
 
 
