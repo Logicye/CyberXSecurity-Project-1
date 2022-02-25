@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.2"
+Version="Version - 0.3.13.3"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -166,6 +166,7 @@ Download_Install_And_Config_Files() {
         printf "${Green}metricbeat-config.yml Download Complete${NoColour}\n\n"
         wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
+        printf "${Green}        All Downloads Complete${NoColour}\n\n"
         Menu
 }
 
@@ -228,8 +229,9 @@ Web_Server_Set() {
                 else
                         sed -i "/\[webservers\]/a $NextIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts
                 fi
-                sleep 1
         done
+        printf "${Green}        All new webserver IP's Added${NoColour}\n\n"
+        sleep 1
         Menu
 
 }
@@ -261,14 +263,15 @@ Elk_Server_Set() {
         fi
         sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/filebeat-config.yml
         sed -i "s/$DefaultIP/$ElkIP/g" $Config_Files/metricbeat-config.yml
-        printf "${Green}Config files changed for kibana server${NoColour}"
+        printf "${Green}        Config files changed for kibana server${NoColour}"
         sleep 1
+        Menu
 }
 
 #Runs install process once all variables have been given
 Install() {
         ansible-playbook "$Config_Files/Complete_Install.yml"
-        printf "${Green} Install Complete!${NoColour}"
+        printf "${Green}        Install Complete!${NoColour}"
         Exit_Or_Return
 }
 
