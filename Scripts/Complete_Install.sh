@@ -1,5 +1,5 @@
 #! /bin/bash
-Version="Version - 0.3.11.15"
+Version="Version - 0.3.11.16"
 VersionCheckSum='Version="'$Version'"'
 echo "$VersionCheckSum"
 sleep 2
@@ -31,7 +31,7 @@ while [[ $# -gt 0 ]]; do
                         clear
                         echo "$VersionCheck"
                         sleep 1
-                        if ! [ $VersionCheck == "$Version" ]; then
+                        if ! [ $VersionCheck == $VersionCheckSum ]; then
                                 clear
                                 echo "Updating..."
                                 sleep 2 
