@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.18"
+Version="Version - 0.3.12.19"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -195,6 +195,7 @@ Web_Server_Set() {
                 else
                         echo "## webservers does exit"
                 fi
+                echo ""
         else
                 # echo "webservers does exit"
         fi
