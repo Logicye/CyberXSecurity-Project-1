@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="Version - 0.3.8"
+Version="Version - 0.3.9"
 
 #inintialise
 # set -e
