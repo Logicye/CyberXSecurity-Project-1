@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.39"
+Version="Version - 0.3.12.40"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -202,13 +202,13 @@ Web_Server_Set() {
         fi
 
         read -p "How many webservers would you like to deploy to? " TotalServers
+        while "$TotalServers" =~ ^[0-9]+$ ; do
+                echo "Number of servers must be an integer!"
+                read -p "How many webservers would you like to deploy to? " TotalServers
+        done
         for i in $(seq 1 "$TotalServers")
         do
                 read -p "Enter server number $i's IP:" NextIP
-                while "$NextIP" =~ ^[0-9]+$ ; do
-                        echo "Number of servers must be an integer!"
-                        read -p "Enter server number $i's IP:" NextIP
-                done
                 IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
                 if [ "$IPExistCheck" == "$NextIP" ];then
                         echo "$NextIP Already in hosts file"
