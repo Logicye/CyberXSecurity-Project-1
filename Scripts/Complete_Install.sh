@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.3"
+Version="Version - 0.3.13.4"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
