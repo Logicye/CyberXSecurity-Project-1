@@ -201,7 +201,7 @@ Web_Server_Set() {
         fi
 
         read -p "How many webservers would you like to deploy to? " TotalServers
-        while "$TotalServers" =~ ^[0-9]+$ ; do
+        while ! "$TotalServers" =~ ^[0-9]+$ ; do
                 echo "Number of servers must be an integer!"
                 read -p "How many webservers would you like to deploy to? " TotalServers
         done
