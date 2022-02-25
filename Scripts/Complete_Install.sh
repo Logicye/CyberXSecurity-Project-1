@@ -3,33 +3,6 @@ Version="0.3.1"
 
 #inintialise
 # set -e
-clear
-POSITIONAL_ARGS=()
-
-while [[ $# -gt 0 ]]; do
-        case $1 in
-                -c|--clean-boot)
-                Clean_Boot
-                echo "CLEAN BOOT(Removing all files...)"
-                sleep 2
-                Menu
-                ;;
-                -u|--update-boot)
-                echo "Updating..."
-                sleep 2
-                Update_Boot
-                ;;
-                *)
-                menu
-                ;;
-  esac
-done
-set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
-
-if [ $(whoami) != 'root' ]; then
-        echo "Must be root to run $0"
-        exit 1;
-fi
 
 #set colours and 
 Green='\033[0;32m'
@@ -356,7 +329,33 @@ function Exit_Or_Return {
 # -------------------------------------------------------------------------------------------------------------
 
 # Update_Boot # Loop error
-Menu
+clear
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+        case $1 in
+                -c|--clean-boot)
+                Clean_Boot
+                echo "CLEAN BOOT(Removing all files...)"
+                sleep 2
+                Menu
+                ;;
+                -u|--update-boot)
+                echo "Updating..."
+                sleep 1
+                Update_Boot
+                ;;
+                *)
+                menu
+                ;;
+  esac
+done
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+if [ $(whoami) != 'root' ]; then
+        echo "Must be root to run $0"
+        exit 1;
+fi
 
 
 
