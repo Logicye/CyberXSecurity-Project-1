@@ -239,13 +239,11 @@ Update() {
 }
 
 Update_Boot() {
-        apt install wget
         sync; echo 3 > /proc/sys/vm/drop_caches 
-        rm $Config_Files/Update.sh
         if ! [ -d "$Config_Files" ]; then
                 mkdir $Config_Files
         fi
-        wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sudo bash $Config_Files/Updater.sh
         exit
         # rm Complete_Install.sh
@@ -286,9 +284,12 @@ Clean_Up() {
         Exit_Or_Return
 }
 
+# Reload all the files and their dependencies in case of corruption
 Clean_Boot() {
-        rm /bin/Complete_Install
         rm -r $Config_Files
+        if ! [ -d "$Config_Files" ]; then
+                mkdir $Config_Files
+        fi
         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
         sudo bash $Config_Files/Updater.sh
         exit
