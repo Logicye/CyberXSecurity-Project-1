@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="Version - 0.3.10"
+Version="Version - 0.3.11"
 
 #inintialise
 # set -e
@@ -222,57 +222,65 @@ Install() {
 #Self Updater
 Update() {
         # curl https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh --output Updater.sh
-        VersionCheck= "`wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - "`"
-        clear
-        echo "$VersionCheck"
-        sleep 2
-        if ! [ $VersionCheck == "$Version" ]; then
-                echo "Updating..."
-                Sleep 3
-                sync; echo 3 > /proc/sys/vm/drop_caches 
-                if ! [ -d "$Config_Files" ]; then
-                        mkdir $Config_Files
-                fi
-                wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-                sleep 2
-                sudo bash $Config_Files/Updater.sh $Config_Files
-                exit
-        else
-                echo "Already up to date!"
-                Sleep 2
-                Menu
-        fi
+        # VersionCheck= "`wget -O - http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh | grep "Version(Updater) - "`"
+        # clear
+        # echo "$VersionCheck"
+        # sleep 2
+        # if ! [ $VersionCheck == "$Version" ]; then
+        #         echo "Updating..."
+        #         Sleep 3
+        #         sync; echo 3 > /proc/sys/vm/drop_caches 
+        #         if ! [ -d "$Config_Files" ]; then
+        #                 mkdir $Config_Files
+        #         fi
+        #         wget --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
+        #         sleep 2
+        #         sudo bash $Config_Files/Updater.sh $Config_Files
+        #         exit
+        # else
+        #         echo "Already up to date!"
+        #         Sleep 2
+        #         Menu
+        # fi
+        Version="Version(Updater) - 0.3.11"
+        echo "$Version"
+        sleep 1
+        wget -m --no-cache --no-check-certificate -O /bin/Complete_Install http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh
+        chmod u+x /bin/Complete_Install
+        chmod 777 /bin/Complete_Install
+        Complete_Install
+        exit
 }
 
 #Clean up discarded files
-Clean_Up() {
-        read -p "Would you like to delete the web server list file? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $WebServerListFileName
-                echo "Web Server List File Removed"
-        fi
-        read -p "Would you like to delete elk server list file? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $ElkServerListFileName
-                echo "Elk Server List File Removed"
-        fi
-        read -p "Would you like to delete the Complete installer playbook? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm $Config_Files/Complete_Install.yml
-                echo "Playbook Removed"
-        fi
-        read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm /bin/Complete_Install
-                echo "Installer Removed"
-        fi
-                read -p "Would you like to delete the config file folder? (Y/N): " confirm  
-        if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
-                rm -r $Config_Files
-                echo "Config Files Removed"
-        fi
-        Exit_Or_Return
-}
+# Clean_Up() {
+#         read -p "Would you like to delete the web server list file? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 rm $WebServerListFileName
+#                 echo "Web Server List File Removed"
+#         fi
+#         read -p "Would you like to delete elk server list file? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 rm $ElkServerListFileName
+#                 echo "Elk Server List File Removed"
+#         fi
+#         read -p "Would you like to delete the Complete installer playbook? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 rm $Config_Files/Complete_Install.yml
+#                 echo "Playbook Removed"
+#         fi
+#         read -p "Would you like to delete the Complete installer package? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 rm /bin/Complete_Install
+#                 echo "Installer Removed"
+#         fi
+#                 read -p "Would you like to delete the config file folder? (Y/N): " confirm  
+#         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
+#                 rm -r $Config_Files
+#                 echo "Config Files Removed"
+#         fi
+#         Exit_Or_Return
+# }
 
 
 #primary menu function
@@ -283,7 +291,7 @@ Menu() {
       printf "${Blue}+-+-+-+ +-+-+-+-+-+-+-+-+-+\n${NoColour}"
       echo "($Version)"
       echo
-      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Remove Installer And All Dependencies" "Update" "Quit")
+      options=("Download Files" "Add Webservers" "Change Elk Server" "Modify Config Files" "Install" "Update" "Quit")
       select_option "${options[@]}"
       choice=$?
 
@@ -302,13 +310,13 @@ Menu() {
                 4)
                 Install
                 ;;
+                # 5)
+                # Clean_Up
+                # ;;
                 5)
-                Clean_Up
-                ;;
-                6)
                 Update
                 ;;
-                7)
+                6)
                 clear
                 exit
                 ;;
