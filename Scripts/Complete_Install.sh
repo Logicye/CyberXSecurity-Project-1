@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.4"
+Version="Version - 0.3.13.5"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -225,7 +225,7 @@ Web_Server_Set() {
                 done
 
                 IPExistCheck=$(grep -m 1 "$NextIP" /etc/ansible/hosts)
-                if [ "$IPExistCheck" == "$NextIP" ];then
+                if [ "$IPExistCheck" == "$NextIP ansible_python_interpreter=/usr/bin/python3" ];then
                         echo "$NextIP Already in hosts file"
                 else
                         sed -i "/\[webservers\]/a $NextIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts
@@ -256,7 +256,7 @@ Elk_Server_Set() {
                 read -p "Please enter the IP address of your Kibana server: " ElkIP
                 is_ip $ElkIP
         done
-        IPExistCheck=$(grep -m 1 "$ElkIP" /etc/ansible/hosts)
+        IPExistCheck=$(grep -m 1 "$ElkIP ansible_python_interpreter=/usr/bin/python3" /etc/ansible/hosts)
         if [ "$IPExistCheck" == "$ElkIP" ];then
                 echo "$ElkIP Already in hosts file"
         else
