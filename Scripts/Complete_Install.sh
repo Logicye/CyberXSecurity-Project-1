@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.12.21"
+Version="Version - 0.3.12.22"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -187,16 +187,23 @@ Download_Install_And_Config_Files() {
 Web_Server_Set() {
         WebServerExist=$(grep "\[webservers\]" /etc/ansible/hosts)
         if [ "$WebServerExist" == "[webservers]" ];then
+                clear
                 echo "webservers does exit"
                 
         elif [ "$WebServerExist" == "## [webservers]" ];then
+                clear
                 echo "## webservers does exist"
-
+                sed -i "s/## [webservers]/[webservers]/g" /etc/ansible/hosts
+                # awk '/## [webservers]/' /etc/ansible/hosts
         else
+                clear
                 echo "webservers does not exist"
+                echo "" >> /etc/ansible/hosts
+                echo "[webservers]" >> /etc/ansible/hosts
 
         fi
-        exit
+        sleep 2
+        Menu
 
 
 
