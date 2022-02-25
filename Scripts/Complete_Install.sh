@@ -1,5 +1,5 @@
 #! /bin/bash
-Version="Version - 0.3.11.11"
+Version="Version - 0.3.11.12"
 clear
 
 if [ $(whoami) != 'root' ]; then
@@ -21,15 +21,9 @@ while [[ $# -gt 0 ]]; do
                 ;;
                 -L|--update-boot)
                         clear
-                        args="-qo"
-                        director="$Config_Files/check.txt"
-                        url="http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Complete_Install.sh"
-                        $wget $args $director $url 
-                        $grep "Version -" $Config_Files/check.txt
-                        echo "----------------------------"
                         VersionCheck=grep "Version -" $Config_Files/check.txt
                         echo "$VersionCheck"
-                        sleep 2
+                        sleep 1
                         if ! [ $VersionCheck == "$Version" ]; then
                                 clear
                                 echo "Updating..."
