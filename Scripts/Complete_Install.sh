@@ -1,6 +1,6 @@
 #! /bin/bash
 clear
-Version="Version - 0.3.13.1"
+Version="Version - 0.3.13.2"
 Config_Files="/etc/Elk_Install_Files"
 
 if [ $(whoami) != 'root' ]; then
@@ -166,6 +166,7 @@ Download_Install_And_Config_Files() {
         printf "${Green}metricbeat-config.yml Download Complete${NoColour}\n\n"
         wget -q --no-check-certificate --content-disposition -O $Config_Files/metricbeat-docker-config.yml https://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/MetricBeat/metricbeat-docker-config.yml
         printf "${Green}metricbeat-docker-config.yml Download Complete${NoColour}\n\n"
+        Menu
 }
 
 # Checks validity of ip
