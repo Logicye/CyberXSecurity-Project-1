@@ -49,7 +49,8 @@ while [[ $# -gt 0 ]]; do
                         else
                                 echo "Already up to date!"
                                 sleep 2
-                                Menu
+                                Complete_Install
+                                exit
                         fi
                 ;;
                 -v|--version)
