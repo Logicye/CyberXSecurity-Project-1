@@ -1,5 +1,5 @@
 #!/bin/bash
-Version="0.3.4"
+Version="Version - 0.3.5"
 
 #inintialise
 # set -e
@@ -15,17 +15,16 @@ POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
         case $1 in
                 -c|--clean-boot)
+                        clear
                         echo "CLEAN BOOT(Removing all files...)"
                         sleep 1
                         rm -r $Config_Files
                         if ! [ -d "$Config_Files" ]; then
                                 mkdir $Config_Files
                         fi
-                        wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-                        sudo bash $Config_Files/Updater.sh $Config_Files
-                        exit
                 ;;
                 -u|--update-boot)
+                        clear
                         echo "Updating..."
                         sleep 1
                         sync; echo 3 > /proc/sys/vm/drop_caches 
@@ -166,7 +165,6 @@ Download_Install_And_Config_Files() {
                 echo "ElkServerList.txt created"
         fi
         ElkServerListFileName="$Config_Files/ElkServerList.txt"
-        Exit_Or_Return
 }
 
 #Set user web servers IP's
@@ -179,7 +177,6 @@ Web_Server_Set() {
                 echo "$NextIP" >> "$WebServerListFileName ansible_python_interpreter=/usr/bin/python3"
         done
         cat $WebServerListFileName >> /etc/ansible/hosts
-        Exit_Or_Return
 }
 
 #Set user elk server IP
@@ -190,7 +187,6 @@ Elk_Server_Set() {
         echo "[elk]" > $ElkServerListFileName
         echo "$NewIP" > "$ElkServerListFileName ansible_python_interpreter=/usr/bin/python3"
         cat $ElkServerListFileName >> /etc/ansible/hosts
-        Exit_Or_Return
 }
 
 #Modify config files
@@ -220,16 +216,6 @@ Update() {
         exit
 }
 
-# Update_Boot() {
-#         sync; echo 3 > /proc/sys/vm/drop_caches 
-#         if ! [ -d "$Config_Files" ]; then
-#                 mkdir $Config_Files
-#         fi
-#         wget -m --no-cache --no-check-certificate -O $Config_Files/Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-#         sudo bash $Config_Files/Updater.sh
-#         exit
-# }
-
 #Clean up discarded files
 Clean_Up() {
         read -p "Would you like to delete the web server list file? (Y/N): " confirm  
@@ -257,20 +243,9 @@ Clean_Up() {
                 rm -r $Config_Files
                 echo "Config Files Removed"
         fi
-        #rm $LogFile
         Exit_Or_Return
 }
 
-# Reload all the files and their dependencies in case of corruption
-# Clean_Boot() {
-#         rm -r $Config_Files
-#         if ! [ -d "$Config_Files" ]; then
-#                 mkdir $Config_Files
-#         fi
-#         wget -m --no-cache --no-check-certificate -O Updater.sh http://raw.githubusercontent.com/Logicye/CyberXSecurity-Project-1/main/Scripts/Updater.sh
-#         sudo bash $Config_Files/Updater.sh
-#         exit
-# }
 
 #primary menu function
 Menu() {
@@ -313,7 +288,7 @@ Menu() {
 }
 
 #Exit or return function, decides whether or not to head back to menu or close out of the installer
-function Exit_Or_Return {
+Exit_Or_Return() {
         read -p "Would you like to return to menu? (Y/N): " confirm  
         if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]];then
                 clear
